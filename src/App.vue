@@ -19,6 +19,9 @@
 </script>
 
 <style>
+	.page-title {
+		margin: 0px;
+	}
 	.container {
 		border: 1px solid #0006;
 		border-radius: 5px;

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 style="text-align: center;">Services</h1>
+		<h1 class="page-title" style="text-align: center;">Services</h1>
 		<div class="container">
 			<h2 style="margin: 5px 0;">Serial2Net</h2>
 			<table>

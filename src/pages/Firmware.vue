@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 style="text-align: center;">Firmware</h1>
+		<h1 class="page-title" style="text-align: center;">Firmware</h1>
 		<div class="container">
 			<h2 style="margin: 5px 0;">OTA</h2>
 			<table>

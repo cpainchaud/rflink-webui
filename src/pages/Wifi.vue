@@ -1,7 +1,7 @@
 <template>
 
 	<div>
-		<h1 style="text-align: center;">Wifi</h1>
+		<h1 class="page-title" style="text-align: center;">Wifi</h1>
 		<div class="container">
 			<table>
 				<tr>
