@@ -2,16 +2,19 @@
 	<div>
 		<input ref="checkbox" type="checkbox" id="mobile-menu-checkbox">
 
-		<nav role="navigation" class="mobile-menu">
-			<h1 style="text-align: center; margin-top: 0">Menu</h1>
+		<nav role="navigation" class="mobile-menu" style="display: flex; flex-direction: column; height: 100%">
+			<h1 style="text-align: center; margin-top: 0; margin-bottom: 0">Menu</h1>
+			<ul class="menu" style="flex-grow: 1">
+				<router-link class="link" @click.native="toggle" to="/home"><li><span class="link-icon">&#127968;</span> Home</li></router-link>
+				<router-link class="link" @click.native="toggle" to="/wifi"><li><span class="link-icon">&#128246;</span> Wifi</li></router-link>
+				<router-link class="link" @click.native="toggle" to="/radio"><li><span class="link-icon">&#128225;</span> Radio</li></router-link>
+				<router-link class="link" @click.native="toggle" to="/signal"><li><span class="link-icon">&#128225;</span> Signal</li></router-link>
+				<router-link class="link" @click.native="toggle" to="/plugins"><li><span class="link-icon">&#129520;</span> Plugins</li></router-link>
+				<router-link class="link" @click.native="toggle" to="/services"><li><span class="link-icon">&#127760;</span> Services</li></router-link>
+				<router-link class="link" @click.native="toggle" to="/firmware"><li><span class="link-icon">&#128190;</span> Firmware</li></router-link>
+			</ul>
 			<ul class="menu">
-				<router-link @click.native="toggle" to="/home"><li>Home</li></router-link>
-				<router-link @click.native="toggle" to="/wifi"><li>Wifi</li></router-link>
-				<router-link @click.native="toggle" to="/radio"><li>Radio</li></router-link>
-				<router-link @click.native="toggle" to="/signal"><li>Signal</li></router-link>
-				<router-link @click.native="toggle" to="/plugins"><li>Plugins</li></router-link>
-				<router-link @click.native="toggle" to="/services"><li>Services</li></router-link>
-				<router-link @click.native="toggle" to="/firmware"><li>Firmware</li></router-link>
+				<router-link class="link" @click.native="toggle" to="/infos"><li>Infos / Credits</li></router-link>
 			</ul>
 		</nav>
 
@@ -123,6 +126,7 @@
 	.menu {
 		list-style: none;
 		padding: 0;
+		margin-top: 0;
 	}
 	.menu li {
 		padding: 5px;
@@ -133,4 +137,13 @@
 		background-color: #0002;
 	}
 
+	.link {
+		text-decoration: none;
+		font-size: 1rem;
+		color: black;
+	}
+	.link-icon {
+		font-size: 1.125rem;
+	}
+	.link:visited { color: initial; }
 </style>
