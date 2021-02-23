@@ -62,7 +62,7 @@ input:checked + .slider:before {
 	INPUTs
 
  */
-input[type="text"],input[type="password"] {
+input[type="text"],input[type="password"],input[type="number"] {
 	margin: 3px;
 	padding: 8px;
 	font-size: 0.9rem;
