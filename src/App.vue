@@ -38,6 +38,22 @@
 	.grid-item {
 	}
 
+	.container {
+		border: 1px solid #0006;
+		border-radius: 5px;
+
+		width: calc(100% - 7px *2);
+
+		padding: 5px;
+		margin: 15px 3px;
+	}
+	.grid-container {
+		display: grid;
+		grid-template-columns: auto auto;
+	}
+	.grid-item {
+	}
+
 	.white {
 		color: white;
 	}
