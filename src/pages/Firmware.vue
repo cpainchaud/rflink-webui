@@ -39,17 +39,7 @@
 <style scoped>
 	@import url(../assets/components.css);
 
-	.container {
-		//background-color: crimson;
 
-		border: 1px solid #0006;
-		border-radius: 5px;
-
-		width: calc(100% - 7px *2);
-
-		padding: 5px;
-		margin: 15px 3px;
-	}
 
 
 </style>
