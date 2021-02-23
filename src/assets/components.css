@@ -1,0 +1,87 @@
+/*
+
+	SLIDER
+
+ */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+}
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 20px;
+	width: 20px;
+	left: 7px;
+	bottom: 5px;
+	background-color: white;
+	-webkit-transition: .15s;
+	transition: .15s;
+}
+input:checked + .slider {
+	background-color: #2196F3;
+}
+input:focus + .slider {
+	box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+.slider.round {
+	border-radius: 20px;
+}
+.slider.round:before {
+	border-radius: 50%;
+}
+
+
+
+
+/*
+
+	INPUTs
+
+ */
+input[type="text"],input[type="password"] {
+	margin: 3px;
+	padding: 8px;
+	font-size: 0.9rem;
+}
+
+/*
+
+	BUTTON
+
+ */
+button,input[type="submit"] {
+	margin: 3px;
+	padding: 8px;
+	font-size: 0.9rem;
+	width: 100px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.btn-green {
+	background-color: yellowgreen;
+	border: 1px solid #7fa734;
+}
