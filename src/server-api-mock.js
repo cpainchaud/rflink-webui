@@ -29,6 +29,44 @@ let config_data = {
 	}
 }
 
+let push_config_data_response_no_error = {
+	"success": True,
+	"message": null
+}
+
+let push_config_data_response_warning = {
+	"success": True,
+	"message": "message warning 1\nmessage warning2"
+}
+
+let push_config_data_response_error = {
+	"success": False,
+	"message": "message warning 1\nmessage error2"
+}
+
+// explanations/unites in as '_xxxx' values
+let get_status_data = {
+	"uptime": 3659,
+	"_uptime_comment": "uptime in seconds",
+	"network": {
+		"wifi_client": {
+			"status": "connected",
+			"_status_comment": "enum [disabled, connected, disconnected]",
+			"ip": "192.168.0.40",
+			"netmask": "255.255.255.0",
+			"dns": "1.3.4.5"
+		},
+		"wifi_ap": {
+			"status": "enabled",
+			"_status_comment": "enum [enabled, disabled]"
+		}
+	},
+	"plugins": {
+		"count": 4,
+		"active_count": 3
+	}
+}
+
 export function makeServer () {
 
 	createServer({
@@ -36,6 +74,10 @@ export function makeServer () {
 
 			this.get("/api/config", () => {
 				return config_data
+			})
+			
+			this.get("/api/status", () => {
+				return get_status_data
 			})
 
 		},
