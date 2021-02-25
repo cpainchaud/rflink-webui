@@ -29,6 +29,21 @@ let config_data = {
 	}
 }
 
+let push_config_data_response_no_error = {
+	"success": True,
+	"message": null
+}
+
+let push_config_data_response_warning = {
+	"success": True,
+	"message": "message warning 1\nmessage warning2"
+}
+
+let push_config_data_response_error = {
+	"success": False,
+	"message": "message warning 1\nmessage error2"
+}
+
 export function makeServer () {
 
 	createServer({
