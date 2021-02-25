@@ -49,11 +49,11 @@ let push_config_data_response_error = {
 
 // explanations/unites in as '_xxxx' values
 let get_status_data = {
-	"uptime": 3659,
+	"uptime": 1200,
 	"_uptime_comment": "uptime in seconds",
 	"network": {
 		"wifi_client": {
-			"status": "connected",
+			"status": "disconnected",
 			"_status_comment": "enum [disabled, connected, disconnected]",
 			"ip": "192.168.0.40",
 			"netmask": "255.255.255.0",
@@ -77,6 +77,12 @@ export function makeServer () {
 
 			this.get("/api/config", () => {
 				return config_data
+			})
+
+			this.post("/api/config", (schema, request) => {
+				let attrs = JSON.parse(request.requestBody)
+				config_data = attrs
+				return push_config_data_response_no_error
 			})
 			
 			this.get("/api/status", () => {
