@@ -29,18 +29,21 @@ let config_data = {
 	}
 }
 
+// eslint-disable-next-line no-unused-vars
 let push_config_data_response_no_error = {
-	"success": True,
+	"success": true,
 	"message": null
 }
 
+// eslint-disable-next-line no-unused-vars
 let push_config_data_response_warning = {
-	"success": True,
+	"success": true,
 	"message": "message warning 1\nmessage warning2"
 }
 
+// eslint-disable-next-line no-unused-vars
 let push_config_data_response_error = {
-	"success": False,
+	"success": false,
 	"message": "message warning 1\nmessage error2"
 }
 
