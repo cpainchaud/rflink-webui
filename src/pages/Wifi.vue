@@ -8,14 +8,14 @@
 				<tr>
 					<td>Active</td>
 					<th><label class="switch" style="margin: 0 5px">
-						<input v-model="model.client.active" type="checkbox">
+						<input v-model="config.wifi.client_enabled" type="checkbox">
 						<span class="slider round"></span>
 					</label></th>
 				</tr>
 				<tr>
 					<td>DHCP</td>
 					<th><label class="switch" style="margin: 0 5px">
-						<input :disabled="!model.client.active" v-model="model.client.dhcp" type="checkbox">
+						<input :disabled="!config.wifi.client_enabled" v-model="config.wifi.client_dhcp_enabled" type="checkbox">
 						<span class="slider round"></span>
 					</label></th>
 				</tr>
@@ -23,37 +23,37 @@
 				<tr>
 					<td>SSID</td>
 					<th><label>
-						<input :disabled="!model.client.active" v-model="model.client.ssid" required placeholder="MonWifi" type="text">
+						<input :disabled="!config.wifi.client_enabled" v-model="config.wifi.client_ssid" required placeholder="MonWifi" type="text">
 					</label></th>
 				</tr>
 				<tr>
 					<td>PSK</td>
 					<th><label>
-						<input :disabled="!model.client.active" v-model="model.client.password" required placeholder="***********" type="password">
+						<input :disabled="!config.wifi.client_enabled" v-model="config.wifi.client_password" required placeholder="***********" type="password">
 					</label></th>
 				</tr>
 				<tr>
 					<td>IP</td>
 					<th><label>
-						<input :disabled="model.client.dhcp || !model.client.active" v-model="model.client.ip" required placeholder="192.168.1.xxx" type="text">
+						<input :disabled="config.wifi.client_dhcp_enabled || !config.wifi.client_enabled" v-model="config.wifi.client_ip" required placeholder="192.168.1.xxx" type="text">
 					</label></th>
 				</tr>
 				<tr>
 					<td>DNS</td>
 					<th><label>
-						<input :disabled="model.client.dhcp || !model.client.active" v-model="model.client.dns" required placeholder="192.168.1.xxx" type="text">
+						<input :disabled="config.wifi.client_dhcp_enabled || !config.wifi.client_enabled" v-model="config.wifi.client_dns" required placeholder="192.168.1.xxx" type="text">
 					</label></th>
 				</tr>
 				<tr>
 					<td>Gateway</td>
 					<th><label>
-						<input :disabled="model.client.dhcp || !model.client.active" v-model="model.client.gateway" required placeholder="192.168.1.xxx" type="text">
+						<input :disabled="config.wifi.client_dhcp_enabled || !config.wifi.client_enabled" v-model="config.wifi.client_gateway" required placeholder="192.168.1.xxx" type="text">
 					</label></th>
 				</tr>
 				<tr>
-					<td>Subnet</td>
+					<td>Mask</td>
 					<th><label>
-						<input :disabled="model.client.dhcp || !model.client.active" v-model="model.client.subnet" required placeholder="255.255.255.0" type="text">
+						<input :disabled="config.wifi.client_dhcp_enabled || !config.wifi.client_enabled" v-model="config.wifi.client_mask" required placeholder="255.255.255.0" type="text">
 					</label></th>
 				</tr>
 			</table>
@@ -66,38 +66,38 @@
 			<tr>
 				<td>Active</td>
 				<th><label class="switch" style="margin: 0 5px">
-					<input v-model="model.ap.active" type="checkbox">
+					<input v-model="config.wifi.ap_enabled" type="checkbox">
 					<span class="slider round"></span>
 				</label></th>
 			</tr>
 			<tr>
 				<td>SSID</td>
 				<th><label>
-					<input :disabled="!model.ap.active" v-model="model.client.ssid" required placeholder="MonWifi" type="text">
+					<input :disabled="!config.wifi.ap_enabled" v-model="config.wifi.ap_ssid" required placeholder="MonWifi" type="text">
 				</label></th>
 			</tr>
 			<tr>
 				<td>PSK</td>
 				<th><label>
-					<input :disabled="!model.ap.active" v-model="model.client.password" required placeholder="***********" type="password">
+					<input :disabled="!config.wifi.ap_enabled" v-model="config.wifi.ap_password" required placeholder="***********" type="password">
 				</label></th>
 			</tr>
 			<tr>
 				<td>IP</td>
 				<th><label>
-					<input :disabled="!model.ap.active" v-model="model.client.ip" required placeholder="192.168.1.xxx" type="text">
+					<input :disabled="!config.wifi.ap_enabled" v-model="config.wifi.ap_ip" required placeholder="192.168.1.xxx" type="text">
 				</label></th>
 			</tr>
 			<tr>
 				<td>Network</td>
 				<th><label>
-					<input :disabled="!model.ap.active" v-model="model.client.gateway" required placeholder="192.168.1.xxx" type="text">
+					<input :disabled="!config.wifi.ap_enabled" v-model="config.wifi.ap_network" required placeholder="192.168.1.xxx" type="text">
 				</label></th>
 			</tr>
 			<tr>
-				<td>Subnet</td>
+				<td>Mask</td>
 				<th><label>
-					<input :disabled="!model.ap.active" v-model="model.client.subnet" required placeholder="255.255.255.0" type="text">
+					<input :disabled="!config.wifi.ap_enabled" v-model="config.wifi.ap_mask" required placeholder="255.255.255.0" type="text">
 				</label></th>
 			</tr>
 		</table>
@@ -111,26 +111,6 @@
 		name: "Wifi",
 		data() {
 			return {
-				model: {
-					client: {
-						active: true,
-						ssid: "",
-						password: "",
-						dhcp: true,
-						ip: "",
-						dns: "",
-						subnet: "",
-						gateway: "",
-					},
-					ap: {
-						active: true,
-						ssid: "",
-						password: "",
-						ip: "",
-						subnet: "",
-						gateway: "",
-					}
-				}
 			}
 		}
 	}
