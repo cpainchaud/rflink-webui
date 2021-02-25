@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-my-toasts": "^1.0.5",
     "vue-router": "^3.5.1"
   },
   "devDependencies": {

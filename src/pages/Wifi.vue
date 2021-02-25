@@ -57,7 +57,7 @@
 					</label></th>
 				</tr>
 			</table>
-			<input type="submit" class="btn-green" value="Save">
+			<input type="submit" class="btn-green" @click="save_config" value="Save">
 		</div>
 
 		<div class="container">
@@ -101,7 +101,7 @@
 				</label></th>
 			</tr>
 		</table>
-		<input type="submit" class="btn-green" value="Save">
+		<input type="submit" class="btn-green" @click="save_config" value="Save">
 	</div>
 	</div>
 </template>
@@ -109,10 +109,6 @@
 <script>
 	export default {
 		name: "Wifi",
-		data() {
-			return {
-			}
-		}
 	}
 </script>
 
