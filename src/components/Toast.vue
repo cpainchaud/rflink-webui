@@ -3,7 +3,7 @@
 		<div class="loading-bar" :style="{ width: percentageElapsed + '%' }" />
 		<button class="close" @click="$emit('remove')">&#10060;</button>
 		<p class="title">{{ type | capitalize }}</p>
-		<p class="message">{{ message }}</p>
+		<p class="message" >{{ message }}</p>
 	</li>
 </template>
 
@@ -44,7 +44,7 @@
 	.type-base { background-color: deepskyblue !important; ; }
 	.type-warning { background-color: orange !important; ; }
 	.type-error { background-color: crimson !important; ; }
-	.type-success { background-color: springgreen !important; ; }
+	.type-success { background-color: #04b13d !important; ; }
 	.mb { margin-bottom: 16px; }
 	.mt { margin-top: 16px; }
 	.toast-container {

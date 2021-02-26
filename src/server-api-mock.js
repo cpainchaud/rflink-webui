@@ -1,5 +1,6 @@
 import { createServer } from 'miragejs'
 
+const startTime = Date.now()
 let config_data = {
 	"portal": {
 		"enabled": true,
@@ -86,6 +87,7 @@ export function makeServer () {
 			})
 			
 			this.get("/api/status", () => {
+				get_status_data.uptime = (Date.now() - startTime) / 1000
 				return get_status_data
 			})
 

@@ -47,6 +47,11 @@
 		padding: 5px;
 		margin: 15px 3px;
 	}
+	.w-auto {
+		width: min-content !important;
+		max-width: calc(100% - 7px *2);
+	}
+
 	.grid-container {
 		display: grid;
 		grid-template-columns: auto auto;

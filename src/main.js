@@ -16,39 +16,60 @@ var config_mixin = {
 	data: function () {
 		return {
 			config: {
-				"portal": {},
-				"mqtt": {},
-				"wifi": {}
+				portal: {},
+				mqtt: {},
+				wifi: {}
+			},
+			status: {
+				uptime: 0,
+				network: {},
+				plugins: {}
 			}
 		}
 	},
 	methods: {
+		reload_status() {
+			axios.get("/api/status").then(response => {
+				this.$set(this,"status",response.data)
+			}).catch(error => {
+				console.error(error)
+				this.$toasts.push({ type: 'error', message: 'A network error occured while saving: '+error, duration:10000 })
+			});
+		},
 		reload_config() {
 			axios.get("/api/config").then(response => {
-				this.$set(this.config,"portal",response.data.portal)
-				this.$set(this.config,"mqtt",response.data.mqtt)
-				this.$set(this.config,"wifi",response.data.wifi)
-			})
+				this.$set(this,"config",response.data)
+			}).catch(error => {
+				console.error(error)
+				this.$toasts.push({ type: 'error', message: 'A network error occured while saving: '+error, duration:10000 })
+			});
 		},
 		save_config() {
-			const q = this
-			axios.post("/api/config").then(response => {
+			axios.post("/api/config", this.config).then(response => {
 				if(response.data.success) {
 					if(response.data.message)
-						q.$toasts.push({ type: 'warning', message: response.data.message.replaceAll("\n","<br>"), duration:5000 })
+						this.$toasts.push({ type: 'warning', message: response.data.message, duration:5000 })
 					else
-						q.$toasts.push({ type: 'success', message: 'Operation is a success' })
+						this.$toasts.push({ type: 'success', message: 'Operation is a success' })
 				} else {
-					q.$toasts.push({ type: 'error', message: response.data.message, duration:10000 })
+					this.$toasts.push({ type: 'error', message: response.data.message, duration:10000 })
 				}
 				console.info(response)
-			}).catch(function (error) {
+			}).catch(error => {
 				console.error(error)
-				q.$toasts.push({ type: 'error', message: 'A network error occured while saving: '+error, duration:10000 })
+				this.$toasts.push({ type: 'error', message: 'A network error occured while saving: '+error, duration:10000 })
+			});
+		},
+		esp_reboot() {
+			axios.post("/api/reboot", this.config).then(() => {
+				this.$toasts.push({ type: 'success', message: 'ESP Will now reboot' })
+			}).catch(error => {
+				this.$toasts.push({ type: 'error', message: 'An error occured while saving: '+error, duration:10000 })
 			});
 		}
 	},
 	mounted() {
+		this.reload_status();
 		this.reload_config();
 	}
 }
@@ -69,6 +90,11 @@ Vue.filter('capitalize', function (value) {
 	}
 	return separateWord.join(' ');
 })
+Vue.filter('sec_to_human', function (value) {
+	if (!value) return ''
+	return new Date(value * 1000).toISOString().substr(11, 8)
+})
+
 
 
 Vue.use(VueMyToasts, {

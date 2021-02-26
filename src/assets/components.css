@@ -85,3 +85,7 @@ button,input[type="submit"] {
 	background-color: yellowgreen;
 	border: 1px solid #7fa734;
 }
+.btn-red {
+	background-color: rgb(223, 71, 89);
+	border: rgb(198, 69, 85);
+}
