@@ -32,31 +32,31 @@
 						<tr>
 							<td>Server</td>
 							<th><label>
-								<input v-model="model.mqtt.server"  required placeholder="192.168.1.xxx" type="text">
+								<input :disabled="!model.mqtt.enabled" v-model="config.mqtt.host"  required placeholder="192.168.1.xxx" type="text">
 							</label></th>
 						</tr>
 						<tr>
 							<td>Port</td>
 							<th><label>
-								<input v-model="model.mqtt.port"  required placeholder="1883" type="number">
+								<input :disabled="!model.mqtt.enabled" v-model="config.mqtt.port" required placeholder="1883" type="number">
 							</label></th>
 						</tr>
 						<tr>
 							<td>ID</td>
 							<th><label>
-								<input v-model="model.mqtt.id"  required placeholder="ESP8266-RFLink_xxx" type="text">
+								<input :disabled="!model.mqtt.enabled || true"  required placeholder="ESP8266-RFLink_xxx" type="text">
 							</label></th>
 						</tr>
 						<tr>
 							<td>User</td>
 							<th><label>
-								<input v-model="model.mqtt.user"  required placeholder="rflink" type="text">
+								<input :disabled="!model.mqtt.enabled || true"  required placeholder="rflink" type="text">
 							</label></th>
 						</tr>
 						<tr>
 							<td>Password</td>
 							<th><label>
-								<input v-model="model.mqtt.password" required placeholder="*************" type="password">
+								<input :disabled="!model.mqtt.enabled || true"  required placeholder="*************" type="password">
 							</label></th>
 						</tr>
 
@@ -65,19 +65,19 @@
 						<tr>
 							<td>OUT Topic</td>
 							<th><label>
-								<input v-model="model.mqtt.topics.out" required placeholder="/ESP00/msg" type="text">
+								<input :disabled="!model.mqtt.enabled || true"  required placeholder="/ESP00/msg" type="text">
 							</label></th>
 						</tr>
 						<tr>
 							<td>IN Topic</td>
 							<th><label>
-								<input v-model="model.mqtt.topics.in" required placeholder="/ESP00/cmd" type="text">
+								<input :disabled="!model.mqtt.enabled || true"  required placeholder="/ESP00/cmd" type="text">
 							</label></th>
 						</tr>
 						<tr>
 							<td>LWT Topic</td>
 							<th><label>
-								<input v-model="model.mqtt.topics.lwt" required placeholder="/ESP00/lwt" type="text">
+								<input :disabled="!model.mqtt.enabled || true"  required placeholder="/ESP00/lwt" type="text">
 							</label></th>
 						</tr>
 					</table>
@@ -99,16 +99,6 @@
 					},
 					mqtt: {
 						enabled: true,
-						server: "",
-						port: 1883,
-						id: "",
-						user: "",
-						password: "",
-						topics: {
-							out: "",
-							in: "",
-							lwt: "",
-						}
 					}
 				}
 			}
