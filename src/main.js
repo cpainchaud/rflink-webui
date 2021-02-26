@@ -69,7 +69,6 @@ var config_mixin = {
 		}
 	},
 	mounted() {
-		this.reload_status();
 		this.reload_config();
 	}
 }

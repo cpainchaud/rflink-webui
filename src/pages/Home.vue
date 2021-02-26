@@ -7,41 +7,41 @@
 			<table style="border: 1px solid black">
 				<tr>
 					<td class="category">Uptime:</td>
-					<td colspan="2">{{ status.uptime | sec_to_human }}</td>
+					<td v-if="status.uptime" colspan="2">{{ status.uptime | sec_to_human }}</td>
 				</tr>
 
 				<tr><td rowspan="5" class="category">Wifi client</td></tr>
 				<tr>
 					<td class="setting">Status</td>
-					<td :class="[`wifi-status-${status.network.wifi_client.status}`]">{{ status.network.wifi_client.status }}</td>
+					<td v-if="status.network.wifi_client" :class="[`wifi-status-${status.network.wifi_client.status}`]">{{ status.network.wifi_client.status }}</td>
 				</tr>
 				<tr>
 					<td class="setting">Ip address</td>
-					<td>{{ status.network.wifi_client.ip }}</td>
+					<td v-if="status.network.wifi_client">{{ status.network.wifi_client.ip }}</td>
 				</tr>
 				<tr>
 					<td class="setting">Netmask</td>
-					<td>{{ status.network.wifi_client.netmask }}</td>
+					<td v-if="status.network.wifi_client">{{ status.network.wifi_client.netmask }}</td>
 				</tr>
 				<tr>
 					<td class="setting">DNS</td>
-					<td>{{ status.network.wifi_client.dns }}</td>
+					<td v-if="status.network.wifi_client">{{ status.network.wifi_client.dns }}</td>
 				</tr>
 
 				<tr><td rowspan="2" class="category">Wifi ap</td></tr>
 				<tr>
 					<td class="setting">Status</td>
-					<td :class="[`wifi-status-${status.network.wifi_ap.status}`]">{{ status.network.wifi_ap.status }}</td>
+					<td v-if="status.network.wifi_ap" :class="[`wifi-status-${status.network.wifi_ap.status}`]">{{ status.network.wifi_ap.status }}</td>
 				</tr>
 
 				<tr><td rowspan="3" class="category">Plugins</td></tr>
 				<tr>
 					<td class="setting">Count</td>
-					<td>{{ status.plugins.count }}</td>
+					<td v-if="status.plugins">{{ status.plugins.count }}</td>
 				</tr>
 				<tr>
 					<td class="setting">Active</td>
-					<td>{{ status.plugins.active_count }}</td>
+					<td v-if="status.plugins">{{ status.plugins.active_count }}</td>
 				</tr>
 
 			</table>
@@ -66,10 +66,14 @@
 		},
 		methods: {
 		},
-		created () {
+		mounted () {
+			this.reload_status()
 			this.polling = setInterval(() => {
 				this.reload_status()
-			}, 2000)
+			}, 10000)
+		},
+		beforeDestroy() {
+			clearInterval(this.polling);
 		}
 	}
 </script>
