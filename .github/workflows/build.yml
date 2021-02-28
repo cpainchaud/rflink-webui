@@ -50,7 +50,7 @@ jobs:
     - name: Push to git
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: Apply automatic changes
+        commit_message: Automated binaries publications
         commit_options: '--no-verify --signoff'
         file_pattern: cpp/*
  
