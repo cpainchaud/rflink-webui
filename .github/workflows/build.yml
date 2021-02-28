@@ -23,13 +23,29 @@ jobs:
     - name: compile web files
       run: |
         npm run build
+        
+    - name: Check folder CPP exists
+      id: check_cpp
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "cpp"
+        
+    - name: create cpp folder
+      if: steps.check_cpp.outputs.files_exists != 'true'
+      run: mkdir cpp
+      
+    - name: bin2c
+      run: |
+        mv cpp cpp.old
         mkdir cpp
         cp ./dist/build.html ./cpp/index.html
         cd ./cpp/
-        gzip index.html
+        gzip -9 -n index.html
         python -m bin2c index.html.gz
         rm -f index.html.gz
         cd ..
+        
+        
         
     - name: Push to git
       uses: stefanzweifel/git-auto-commit-action@v4
