@@ -1,0 +1,41 @@
+name: build
+on: [push]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    name: Build
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: bahmutov/npm-install@v1
+      
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+        
+    - name: Install dependencies
+      run: python -m pip install bin2c
+      
+    - name: compile web files
+      run: |
+        npm run build
+        mkdir cpp
+        cp ./dist/build.html ./cpp/index.html
+        cd ./cpp/
+        gzip index.html
+        python -m bin2c index.html.gz
+        rm -f index.html.gz
+        cd ..
+        
+    - name: Push to git
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Apply automatic changes
+        commit_options: '--no-verify --signoff'
+        file_pattern: cpp/*
+ 
+ 
