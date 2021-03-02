@@ -2,7 +2,7 @@
 	<div>
 		<h1 class="page-title" style="text-align: center;">Signals</h1>
 		<div class="container">
-			<h2 style="margin: 5px 0;">OTA</h2>
+			<h2 style="margin: 5px 0;">Signal</h2>
 			<table>
 				<tr v-for="plugin in plugins" :key="plugin.key">
 					<td>{{ plugin.name }}</td>
