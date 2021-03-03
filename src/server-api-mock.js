@@ -28,6 +28,23 @@ let config_data = {
 		"ap_ip": "192.168.4.1",
 		"ap_network": "192.168.4.0",
 		"ap_mask": "255.255.255.0"
+	},
+	"signal": {
+		"sample_rate": 1,
+		"min_raw_pulses": 24,
+		"seek_timeout": 25,
+		"_comment_seek_timeout": "millisecond",
+		"min_preamble": 100,
+		"_comment_min_preamble": "microsecond",
+		"min_pulse_len": 50,
+		"_comment_min_pulse_len": "microsecond",
+		"signal_end_timeout": 5000,
+		"_comment_signal_end_timeout": "microsecond",
+		"signal_repeat_time": 250,
+		"_comment_signal_repeat_time": "millisecond",
+		"scan_high_time": 50,
+		"_comment_scan_high_time": "millisecond",
+		"async_mode_enabled": false
 	}
 }
 
@@ -65,23 +82,6 @@ let get_status_data = {
 			"status": "enabled",
 			"_status_comment": "enum [enabled, disabled]"
 		}
-	},
-	"signal": {
-		"sample_rate": 1,
-		"min_raw_pulses": 24,
-		"seek_timeout": 25,
-		"_comment_seek_timeout": "millisecond",
-		"min_preamble": 100,
-		"_comment_min_preamble": "microsecond",
-		"min_pulse_len": 50,
-		"_comment_min_pulse_len": "microsecond",
-		"signal_end_timeout": 5000,
-		"_comment_signal_end_timeout": "microsecond",
-		"signal_repeat_time": 250,
-		"_comment_signal_repeat_time": "millisecond",
-		"scan_high_time": 50,
-		"_comment_scan_high_time": "millisecond",
-		"async_mode_enabled": false
 	},
 	"plugins": {
 		"count": 4,
