@@ -19,12 +19,12 @@ var config_mixin = {
 				portal: {},
 				mqtt: {},
 				wifi: {},
+				signal: {}
 			},
 			status: {
 				uptime: 0,
 				network: {},
-				plugins: {},
-				signal: {}
+				plugins: {}
 			}
 		}
 	},
@@ -71,7 +71,6 @@ var config_mixin = {
 	},
 	mounted() {
 		this.reload_config();
-		this.reload_status();
 	}
 }
 Vue.mixin(config_mixin);

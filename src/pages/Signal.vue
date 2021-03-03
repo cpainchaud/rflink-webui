@@ -27,24 +27,24 @@
 		name: "Signal",
 		computed: {
 			signals() {
-				if(this.status.signal ==null) return []
-				return Object.keys(this.status.signal).map((key)=>{
+				if(this.config.signal ==null) return []
+				return Object.keys(this.config.signal).map((key)=>{
 					if(key.startsWith("_comment")) return
 					return {
 						key,
 						name: this.$options.filters.capitalize(key.replaceAll("_", " ")),
-						unit: this.status.signal["_comment_"+key] !== undefined ? this.status.signal["_comment_"+key] : "",
-						value: this.status.signal[key],
-						type: (typeof this.status.signal[key]).replace("string","text")
+						unit: this.config.signal["_comment_"+key] !== undefined ? this.config.signal["_comment_"+key] : "",
+						value: this.config.signal[key],
+						type: (typeof this.config.signal[key]).replace("string","text")
 					}
 				}).filter((x)=>{ return !!x })
 			}
 		},
 		methods: {
 			updateValue(signal,value) {
-				if(signal.type === "number") this.status.signal[signal.key] = Number.parseFloat(value)
-				if(signal.type === "boolean") this.status.signal[signal.key] = value
-				else this.status.signal[signal.key] = value
+				if(signal.type === "number") this.config.signal[signal.key] = Number.parseFloat(value)
+				if(signal.type === "boolean") this.config.signal[signal.key] = value
+				else this.config.signal[signal.key] = value
 			}
 		},
 		data() {
