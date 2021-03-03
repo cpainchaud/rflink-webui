@@ -50,6 +50,7 @@ var config_mixin = {
 		},
 		save_config() {
 			axios.post("/api/config", this.config).then(response => {
+				this.reload_config();
 				if(response.data.success) {
 					if(response.data.message) {
 						Swal.fire({
