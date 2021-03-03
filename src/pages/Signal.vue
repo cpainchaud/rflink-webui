@@ -11,7 +11,7 @@
 							<span class="slider round"></span>
 						</label>
 						<label v-else >
-							<input required :placeholder="signal.value" :value="signal.value" v-on:input="updateValue(signal, $event.target.value)" :type="signal.type">
+							<input required :placeholder="signal.value" :value="config.signal[signal.key]" v-on:input="updateValue(signal, $event.target.value)" :type="signal.type">
 						</label>
 					</th>
 					<td>{{ signal.unit }}</td>
