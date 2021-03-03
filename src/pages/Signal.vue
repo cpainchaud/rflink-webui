@@ -42,8 +42,9 @@
 		},
 		methods: {
 			updateValue(signal,value) {
+				console.log(signal.type)
 				if(signal.type === "number") this.config.signal[signal.key] = Number.parseFloat(value)
-				if(signal.type === "boolean") this.config.signal[signal.key] = value
+				else if(signal.type === "boolean") this.config.signal[signal.key] = value
 				else this.config.signal[signal.key] = value
 			}
 		},
