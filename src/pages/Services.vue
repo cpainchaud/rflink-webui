@@ -12,7 +12,7 @@
 					</label></th>
 				</tr>
 			</table>
-			<input type="submit" class="btn-green" value="Save">
+			<input type="submit" class="btn-green" @click="save_config" value="Save">
 		</div>
 
 		<div class="container ">
@@ -90,7 +90,7 @@
 					</table>
 				</div>
 			</div>
-			<input type="submit" class="btn-green" value="Save">
+			<input type="submit" class="btn-green" @click="save_config" value="Save">
 		</div>
 	</div>
 </template>
