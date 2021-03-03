@@ -10,10 +10,16 @@
 					<td v-if="status.uptime" colspan="2">{{ status.uptime | sec_to_human }}</td>
 				</tr>
 
+				<tr><td rowspan="2" class="category">MQTT</td></tr>
+				<tr>
+					<td class="setting">Status</td>
+					<td v-if="status.mqtt.status" :class="[`status-${status.mqtt.status}`]">{{ status.mqtt.status }}</td>
+				</tr>
+
 				<tr><td rowspan="5" class="category">Wifi client</td></tr>
 				<tr>
 					<td class="setting">Status</td>
-					<td v-if="status.network.wifi_client" :class="[`wifi-status-${status.network.wifi_client.status}`]">{{ status.network.wifi_client.status }}</td>
+					<td v-if="status.network.wifi_client" :class="[`status-${status.network.wifi_client.status}`]">{{ status.network.wifi_client.status }}</td>
 				</tr>
 				<tr>
 					<td class="setting">Ip address</td>
@@ -31,7 +37,7 @@
 				<tr><td rowspan="2" class="category">Wifi ap</td></tr>
 				<tr>
 					<td class="setting">Status</td>
-					<td v-if="status.network.wifi_ap" :class="[`wifi-status-${status.network.wifi_ap.status}`]">{{ status.network.wifi_ap.status }}</td>
+					<td v-if="status.network.wifi_ap" :class="[`status-${status.network.wifi_ap.status}`]">{{ status.network.wifi_ap.status }}</td>
 				</tr>
 
 				<tr><td rowspan="3" class="category">Plugins</td></tr>
@@ -79,13 +85,13 @@
 </script>
 
 <style scoped>
-	.wifi-status-connected,.wifi-status-enabled {
+	.status-connected,.status-enabled {
 		color: #3db43d;
 	}
-	.wifi-status-disconnected {
+	.status-disconnected {
 		color: #dc872e;
 	}
-	.wifi-status-disabled {
+	.status-disabled {
 		color: #929292;
 	}
 
