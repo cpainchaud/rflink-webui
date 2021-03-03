@@ -2,13 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import { router } from './router';
-
-import { makeServer } from "./server-api-mock"
 import axios from "axios";
 import Swal from 'sweetalert2'
 
 if (process.env.NODE_ENV === "development") {
-	makeServer()
+	import('./server-api-mock')
+		.then((file) => {
+			file.makeServer()
+		});
 }
 
 Vue.use(VueRouter)
