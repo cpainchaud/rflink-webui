@@ -53,6 +53,16 @@ let config_data = {
 		"scan_high_time": 50,
 		"_comment_scan_high_time": "millisecond",
 		"async_mode_enabled": false
+	},
+	"radio": {
+		"hardware":"generic",
+		"_comment_hardware_": "enum generic, rfm69 (more to come). should be in a SELECT box",
+		"rx_data_pin": 21,
+		"rx_power_pin": -1,
+		"rx_power_inverted": false,
+		"tx_data_pin": 2,
+		"tx_power": 4,
+		"tx_power_inverted": false
 	}
 }
 
