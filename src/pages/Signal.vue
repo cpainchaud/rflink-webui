@@ -4,13 +4,21 @@
 		<div class="container">
 			<h2 style="margin: 5px 0;">Signal</h2>
 			<table>
-				<tr v-for="plugin in plugins" :key="plugin.key">
-					<td>{{ plugin.name }}</td>
-					<th><label><input required :placeholder="plugin.value" v-model="plugin.value" type="number"></label></th>
-					<td>{{ plugin.unit }}</td>
+				<tr v-for="signal in signals" :key="signal.key">
+					<td>{{ signal.name }}</td>
+					<th>
+						<label v-if="signal.type === 'boolean'" class="switch" style="margin: 0 5px">
+							<input :value="signal.value" v-on:input="updateValue(signal, $event.target.checked)"  type="checkbox">
+							<span class="slider round"></span>
+						</label>
+						<label v-else >
+							<input required :placeholder="signal.value" :value="signal.value" v-on:input="updateValue(signal, $event.target.value)" :type="signal.type">
+						</label>
+					</th>
+					<td>{{ signal.unit }}</td>
 				</tr>
 			</table>
-			<input type="submit" class="btn-green" value="Save">
+			<input type="submit" class="btn-green" @click="save_config" value="Save">
 		</div>
 	</div>
 </template>
@@ -18,19 +26,31 @@
 <script>
 	export default {
 		name: "Signal",
+		computed: {
+			signals() {
+				if(this.status.signal ==null) return []
+				return Object.keys(this.status.signal).map((key)=>{
+					if(key.startsWith("_comment")) return
+					return {
+						key,
+						name: this.$options.filters.capitalize(key.replaceAll("_", " ")),
+						unit: this.status.signal["_comment_"+key] !== undefined ? this.status.signal["_comment_"+key] : "",
+						value: this.status.signal[key],
+						type: (typeof this.status.signal[key]).replace("string","text")
+					}
+				}).filter((x)=>{ return !!x })
+			}
+		},
+		methods: {
+			updateValue(signal,value) {
+				if(signal.type === "number") this.status.signal[signal.key] = Number.parseFloat(value)
+				if(signal.type === "boolean") this.status.signal[signal.key] = value
+				else this.status.signal[signal.key] = value
+				console.log(signal,value)
+			}
+		},
 		data() {
 			return {
-				plugins: [
-					{name:"Raw buffer size",        unit: "bytes", key:"RAW_BUFFER_SIZE",        value: 292},
-					{name:"Raw min pulses",         unit: "",      key:"MIN_RAW_PULSES",         value:24 },
-					{name:"Signal seek timeout",    unit: "ms",    key:"SIGNAL_SEEK_TIMEOUT_MS", value:25 },
-					{name:"Signal min preamble",    unit: "µs",    key:"SIGNAL_MIN_PREAMBLE_US", value:100 },
-					{name:"Min pulse length",       unit: "µs",    key:"MIN_PULSE_LENGTH_US",    value:50 },
-					{name:"Signal end tiemout",     unit: "µs",    key:"SIGNAL_END_TIMEOUT_US",  value:5000 },
-					{name:"Signal end repeat",      unit: "ms",    key:"SIGNAL_REPEAT_TIME_MS",  value:250 },
-					{name:"Scan high time",         unit: "ms",    key:"SCAN_HIGH_TIME_MS",      value:50 },
-					{name:"Raw signal sample rate", unit: "",      key:"RAWSIGNAL_SAMPLE_RATE ", value:1 },
-				]
 			}
 		}
 	}

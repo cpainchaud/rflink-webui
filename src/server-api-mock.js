@@ -1,4 +1,5 @@
-import { createServer } from 'miragejs'
+// eslint-disable-next-line no-unused-vars
+import { createServer,Response  } from 'miragejs'
 
 const startTime = Date.now()
 let config_data = {
@@ -106,6 +107,7 @@ export function makeServer () {
 			this.get("/api/status", () => {
 				get_status_data.uptime = (Date.now() - startTime) / 1000
 				return get_status_data
+				//return new Response(404, { some: 'header' }, { errors: [ 'Not found'] });
 			})
 
 		},
