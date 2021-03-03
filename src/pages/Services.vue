@@ -102,10 +102,10 @@
 			return {
 				model: {
 					serial2net: {
-						enabled: true
+						enabled: false
 					},
 					mqtt: {
-						enabled: true,
+						enabled: false,
 					}
 				}
 			}
