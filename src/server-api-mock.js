@@ -78,6 +78,10 @@ let push_config_data_response_error = {
 let get_status_data = {
 	"uptime": 1200,
 	"_uptime_comment": "uptime in seconds",
+	"mqtt": {
+		"status": "connected",
+		"_comment_status": "enum [disabled, connected, disconnected]"
+	},
 	"network": {
 		"wifi_client": {
 			"status": "disconnected",
