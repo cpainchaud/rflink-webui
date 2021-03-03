@@ -2,7 +2,6 @@
 	<div>
 		<h1 class="page-title" style="text-align: center;">Signals</h1>
 		<div class="container">
-			<h2 style="margin: 5px 0;">Signal</h2>
 			<table>
 				<tr v-for="signal in signals" :key="signal.key">
 					<td>{{ signal.name }}</td>
@@ -46,7 +45,6 @@
 				if(signal.type === "number") this.status.signal[signal.key] = Number.parseFloat(value)
 				if(signal.type === "boolean") this.status.signal[signal.key] = value
 				else this.status.signal[signal.key] = value
-				console.log(signal,value)
 			}
 		},
 		data() {

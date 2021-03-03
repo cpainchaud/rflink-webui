@@ -2,7 +2,6 @@
 	<div>
 		<h1 class="page-title" style="text-align: center;">Plugins</h1>
 		<div class="container">
-			<h2 style="margin: 5px 0;">OTA</h2>
 			<input type="submit" class="btn-green" value="Save">
 			<table>
 				<tr v-for="plugin in plugins" :key="plugin.key">

@@ -8,7 +8,7 @@
 				<router-link class="link" @click.native="toggle" to="/home"><li><span class="link-icon">&#127968;</span> Home</li></router-link>
 				<router-link class="link" @click.native="toggle" to="/wifi"><li><span class="link-icon">&#128246;</span> Wifi</li></router-link>
 				<router-link class="link" @click.native="toggle" to="/radio"><li><span class="link-icon">&#128225;</span> Radio</li></router-link>
-				<router-link class="link" @click.native="toggle" to="/signal"><li><span class="link-icon">&#128225;</span> Signal</li></router-link>
+				<router-link class="link" @click.native="toggle" to="/signal"><li><span class="link-icon">&#128225;</span> Signals</li></router-link>
 				<router-link class="link" @click.native="toggle" to="/plugins"><li><span class="link-icon">&#129520;</span> Plugins</li></router-link>
 				<router-link class="link" @click.native="toggle" to="/services"><li><span class="link-icon">&#127760;</span> Services</li></router-link>
 				<router-link class="link" @click.native="toggle" to="/firmware"><li><span class="link-icon">&#128190;</span> Firmware</li></router-link>
