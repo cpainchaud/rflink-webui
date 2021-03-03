@@ -10,8 +10,16 @@ let config_data = {
 		"auth_password": ""
 	},
 	"mqtt": {
-		"host": "enter a hostname here",
-		"port": 1900
+		"enabled": false,
+		"server": "192.168.1.74",
+		"port": 1883,
+		"id": "ESP8266-RFLink_xxx",
+		"user": "xxx",
+		"password": "xxx",
+		"topic_in": "/ESP00/cmd",
+		"topic_out": "/ESP00/msg",
+		"topic_lwt": "/ESP00/lwt",
+		"lwt_enabled": true
 	},
 	"wifi": {
 		"client_enabled": false,
