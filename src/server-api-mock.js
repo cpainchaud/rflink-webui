@@ -57,12 +57,17 @@ let config_data = {
 	"radio": {
 		"hardware":"generic",
 		"_comment_hardware_": "enum generic, rfm69 (more to come). should be in a SELECT box",
-		"rx_data_pin": 21,
-		"rx_power_pin": -1,
-		"rx_power_inverted": false,
-		"tx_data_pin": 2,
-		"tx_power": 4,
-		"tx_power_inverted": false
+		"hardware": "generic",
+		"rx_data": 21,
+		"rx_vcc": -1,
+		"rx_nmos": -1,
+		"rx_pmos": -1,
+		"rx_gnd": -1,
+		"rx_na": -1,
+		"tx_data": 2,
+		"tx_vcc": 4,
+		"tx_nmos": -1,
+		"tx_pmos": -1
 	}
 }
 
