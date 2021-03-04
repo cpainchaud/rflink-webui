@@ -22,7 +22,8 @@ var config_mixin = {
 				portal: {},
 				mqtt: {},
 				wifi: {},
-				signal: {}
+				signal: {},
+				radio: {}
 			},
 			status: {
 				uptime: 0,
