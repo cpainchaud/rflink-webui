@@ -55,7 +55,6 @@ let config_data = {
 		"async_mode_enabled": false
 	},
 	"radio": {
-		"hardware":"generic",
 		"_comment_hardware_": "enum generic, rfm69 (more to come). should be in a SELECT box",
 		"hardware": "generic",
 		"rx_data": 21,
