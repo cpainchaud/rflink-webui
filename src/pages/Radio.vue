@@ -26,7 +26,7 @@
 	export default {
 		name: "Radio",
 		computed: {
-			signals() {
+			radios() {
 				if(this.config.radio ==null) return []
 				return Object.keys(this.config.radio).map((key)=>{
 					if(key.startsWith("_comment")) return
