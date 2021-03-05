@@ -1,7 +1,7 @@
 <template>
 	<div style="display: flex; flex-direction: column; align-items: center">
 		<h1 class="page-title">Home</h1>
-		<div class="container" style="min-width: 33%">
+		<div class="container" style="min-width: 33%" v-if="loaded">
 
 			<h2 style="margin: 5px 0;">Status</h2>
 			<table style="border: 1px solid black">
@@ -71,6 +71,11 @@
 		data () {
 			return {
 				polling: null
+			}
+		},
+		computed: {
+			loaded() {
+				return this.status.network !== undefined && this.status.plugins !== undefined && this.status.uptime !== 0
 			}
 		},
 		methods: {

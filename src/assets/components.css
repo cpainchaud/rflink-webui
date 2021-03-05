@@ -55,18 +55,23 @@ input:checked + .slider:before {
 }
 
 
-
-
 /*
 
-	INPUTs
+	INPUT
 
  */
-input[type="text"],input[type="password"],input[type="number"] {
-	margin: 3px;
+input[type="text"],input[type="password"],input[type="number"],select {
 	padding: 8px;
 	font-size: 0.9rem;
+	box-sizing:border-box;
+	width: 100%;
+	border: 1px solid gray;
+	border-radius: 5px;
 }
+
+
+
+
 
 /*
 
@@ -77,7 +82,7 @@ button,input[type="submit"] {
 	margin: 3px;
 	padding: 8px;
 	font-size: 0.9rem;
-	width: 100px;
+	width: 100%;
 	cursor: pointer;
 	border-radius: 5px;
 }

@@ -17,17 +17,9 @@ import VueMyToasts from 'vue-my-toasts'
 import 'vue-my-toasts/dist/vue-my-toasts.css'
 import ToastComponent from './components/Toast'
 
-Vue.filter('capitalize', function (value) {
-	if (!value) return ''
-	value = value.toString()
+import { capitalize } from "./utils"
 
-	let separateWord = value.toLowerCase().split(' ');
-	for (let i = 0; i < separateWord.length; i++) {
-		separateWord[i] = separateWord[i].charAt(0).toUpperCase() +
-			separateWord[i].substring(1);
-	}
-	return separateWord.join(' ');
-})
+Vue.filter('capitalize', capitalize)
 Vue.filter('sec_to_human', function (value) {
 	if (!value) return ''
 	return new Date(value * 1000).toISOString().substr(11, 8)
