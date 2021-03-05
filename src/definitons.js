@@ -19,11 +19,54 @@ export function generateKeysMapper(config, sub_config_key, key_filter) {
 			enabled_by: defHasSubKeyKeyParm(sub_config_key,key,"enabled_by") ? definitions[sub_config_key][key].enabled_by : [],
 			enabled_by_config: config[sub_config_key],
 
-			constraints: defHasSubKeyKeyParm(sub_config_key,key,"constraints") ? definitions[sub_config_key][key].constraints : {},
+			constrains: defHasSubKeyKeyParm(sub_config_key,key,"constrains") ? definitions[sub_config_key][key].constrains : {},
 
 			comment:  defHasSubKeyKeyParm(sub_config_key,key,"unit") ? definitions[sub_config_key][key].unit : "",
 		}
 	}
+}
+
+function typeToJsonType(type) {
+	switch (type) {
+		case "bool":
+			return "bool"
+		case "int":
+		case "double":
+			return "number"
+		case "string":
+		case "text":
+		case "ipaddress":
+		case "password":
+			return "string"
+	}
+	return null;
+}
+export function generateconstrainErrorsReport(config) {
+	let errors = [];
+
+	for(const sub_config_key of Object.keys(config)) {
+		for(const key of Object.keys(config[sub_config_key])) {
+
+			if(defHasSubKeyKeyParm(sub_config_key,key,"constrains")) {
+				const constrains = definitions[sub_config_key][key].constrains
+				const type = typeToJsonType(definitions[sub_config_key][key].type || "string")
+				const value = config[sub_config_key][key]
+
+				if(type==="bool") continue;
+				if(type==="string") {
+					if(constrains.min_length !== undefined && value.length<constrains.min_length) errors.push({sub_config_key,key,failed_constrain:"min_length",value,expected:constrains.min_length})
+					if(constrains.max_length !== undefined && value.length>constrains.max_length) errors.push({sub_config_key,key,failed_constrain:"max_length",value,expected:constrains.max_length})
+				}
+				if(type==="number") {
+					if(constrains.min !== undefined && value<constrains.min) errors.push({sub_config_key,key,failed_constrain:"min",value,expected:constrains.min});
+					if(constrains.max !== undefined && value>constrains.max) errors.push({sub_config_key,key,failed_constrain:"max",value,expected:constrains.max});
+				}
+			}
+
+		}
+	}
+
+	return errors;
 }
 
 export const definitions = {
@@ -36,13 +79,13 @@ export const definitions = {
         },
 		auth_user: {
             type: "string",
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
 		auth_password: {
             type: "password",
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
@@ -57,7 +100,7 @@ export const definitions = {
         },
 		port: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 1,
 				max: 320000,
 			},
@@ -66,42 +109,42 @@ export const definitions = {
 		id: {
             type: "string",
 			enabled_by: ["enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
 		user: {
             type: "string",
 			enabled_by: ["enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
 		password: {
             type: "password",
 			enabled_by: ["enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
 		topic_in: {
             type: "string",
 			enabled_by: ["enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
 		topic_out: {
             type: "string",
 			enabled_by: ["enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
 		topic_lwt: {
             type: "string",
 			enabled_by: ["enabled","lwt_enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
@@ -121,14 +164,14 @@ export const definitions = {
 		client_ssid: {
             type: "string",
 			enabled_by: ["client_enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
 		client_password: {
             type: "string",
 			enabled_by: ["client_enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
@@ -154,14 +197,14 @@ export const definitions = {
 		ap_ssid: {
             type: "string",
 			enabled_by: ["ap_enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
 		ap_password: {
             type: "string",
 			enabled_by: ["ap_enabled"],
-			constraints: {
+			constrains: {
 				length_min: 1,
 			},
         },
@@ -181,56 +224,56 @@ export const definitions = {
 	signal: {
 		sample_rate: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 0,
 				max: 256,
 			},
         },
 		min_raw_pulses: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 0,
 				max: 291,
 			},
         },
 		seek_timeout: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 0,
 			},
             unit: "ms",
         },
 		min_preamble: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 0,
 			},
             unit: "us",
         },
 		min_pulse_len: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 0,
 			},
             unit: "us",
         },
 		signal_end_timeout: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 0,
 			},
             unit: "us",
         },
 		signal_repeat_time: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 0,
 			},
             unit: "ms",
         },
 		scan_high_time: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: 0,
 			},
             unit: "ms",
@@ -246,61 +289,61 @@ export const definitions = {
         },
 		rx_data:  {
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },
 		rx_vcc: {
             type: "int",
-			constraints: {
-				min: 0,
+			constrains: {
+				min: -1,
 			},
         },
 		rx_nmos: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },
 		rx_pmos: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },
 		rx_gnd: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },
 		rx_na: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },
 		tx_data:{
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },
 		tx_vcc: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },
 		tx_nmos: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },
 		tx_pmos: {
             type: "int",
-			constraints: {
+			constrains: {
 				min: -1,
 			},
         },

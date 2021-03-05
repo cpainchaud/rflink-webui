@@ -1,6 +1,8 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import { generateconstrainErrorsReport } from "./definitons"
+
 export const api_mixin = {
 	data: function () {
 		return {
@@ -36,6 +38,25 @@ export const api_mixin = {
 			});
 		},
 		save_config() {
+			const errors = generateconstrainErrorsReport(this.config)
+			if(errors.length>0) {
+				let list="<ul>"
+				for(const error of errors) {
+					console.log("zrfe")
+					list+=`<li><b>${error.sub_config_key} / ${error.key}</b> failed ${error.failed_constrain} constrain, value is <b>${error.value}</b> constrain <b>expected ${error.expected}</b></li>`
+				}
+				list+="</ul>"
+
+
+				Swal.fire({
+					title: 'Error!',
+					html: "It seems that there are errors in the configuration, make sure you correct them before updating the configuration.<br><br>"+list+"<br>If you think it's a bug feel free to report it on github",
+					icon: 'error',
+					confirmButtonText: 'Continue'
+				})
+
+				return;
+			}
 			axios.post("/api/config", this.config).then(response => {
 				this.reload_config();
 				if(response.data.success) {

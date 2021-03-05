@@ -17,10 +17,10 @@
 						:value="local_value"
 						v-on:input="porpagate_value_update($event.target.value)"
 						:type="html_data_type"
-						:min="configuration.constraints.min"
-						:max="configuration.constraints.max"
-						:minlength="configuration.constraints.length_max"
-						:maxlength="configuration.constraints.length_max"
+						:min="configuration.constrains.min"
+						:max="configuration.constrains.max"
+						:minlength="configuration.constrains.length_max"
+						:maxlength="configuration.constrains.length_max"
 				>
 			</div>
 			<div class="input-container" v-else-if="html_type_group === 'select'">
