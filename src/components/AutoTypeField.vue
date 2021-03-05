@@ -9,7 +9,19 @@
 				</label>
 			</div>
 			<div class="input-container" v-else-if="html_type_group === 'input'">
-				<input :disabled="!enabled" :class="{'invalid':!is_valid}" required :placeholder="configuration.value" :value="local_value" v-on:input="porpagate_value_update($event.target.value)" :type="html_input_type">
+				<input
+						:disabled="!enabled"
+						:class="{'invalid':!is_valid}"
+						required
+						:placeholder="configuration.value"
+						:value="local_value"
+						v-on:input="porpagate_value_update($event.target.value)"
+						:type="html_input_type"
+						:min="configuration.constraints.min"
+						:max="configuration.constraints.max"
+						:minlength="configuration.constraints.length_max"
+						:maxlength="configuration.constraints.length_max"
+				>
 			</div>
 			<div class="input-container" v-else-if="html_type_group === 'select'">
 				<select :disabled="!enabled" required :value="local_value" v-on:input="porpagate_value_update($event.target.value)">

@@ -27,7 +27,7 @@ export function generateKeysMapper(config, sub_config_key, key_filter) {
 }
 
 export const definitions = {
-    "portal": {
+    portal: {
 		enabled: {
             type: "bool",
         },
@@ -241,7 +241,7 @@ export const definitions = {
 	},
 	radio: {
 		hardware:{
-            type: "string",
+            type: "stfringp",
             enum: ["generic", "rfm69"],
         },
 		rx_data:  {
