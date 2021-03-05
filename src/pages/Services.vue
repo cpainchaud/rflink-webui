@@ -96,8 +96,11 @@
 </template>
 
 <script>
+	import {api_mixin} from "../api_mixin";
+
 	export default {
 		name: "Services",
+		mixins: [api_mixin],
 	}
 </script>
 

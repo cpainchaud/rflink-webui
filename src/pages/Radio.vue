@@ -23,17 +23,20 @@
 </template>
 
 <script>
+	import { definitions } from "../definitons";
+	import {api_mixin} from "../api_mixin";
+
 	export default {
 		name: "Radio",
+		mixins: [api_mixin],
 		computed: {
 			radios() {
 				if(this.config.radio ==null) return []
 				return Object.keys(this.config.radio).map((key)=>{
-					if(key.startsWith("_comment")) return
 					return {
 						key,
 						name: this.$options.filters.capitalize(key.replaceAll("_", " ")),
-						unit: this.config.radio["_comment_"+key] !== undefined ? this.config.radio["_comment_"+key] : "",
+						unit: definitions.radio[key] !== undefined ? definitions.radio[key].unit : "",
 						value: this.config.radio[key],
 						type: (typeof this.config.radio[key]).replace("string","text")
 					}

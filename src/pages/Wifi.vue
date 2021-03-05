@@ -107,8 +107,11 @@
 </template>
 
 <script>
+	import {api_mixin} from "../api_mixin";
+
 	export default {
 		name: "Wifi",
+		mixins: [api_mixin],
 	}
 </script>
 

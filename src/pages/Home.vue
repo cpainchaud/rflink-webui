@@ -63,8 +63,11 @@
 </template>
 
 <script>
+	import {api_mixin} from "../api_mixin";
+
 	export default {
 		name: "Home",
+		mixins: [api_mixin],
 		data () {
 			return {
 				polling: null
