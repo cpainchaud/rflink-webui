@@ -241,7 +241,7 @@ export const definitions = {
 	},
 	radio: {
 		hardware:{
-            type: "stfringp",
+            type: "string",
             enum: ["generic", "rfm69"],
         },
 		rx_data:  {

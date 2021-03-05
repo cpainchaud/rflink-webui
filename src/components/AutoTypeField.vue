@@ -4,7 +4,7 @@
 		<td>
 			<div class="input-container" v-if="html_type_group === 'checkbox'">
 				<label class="switch" style="margin: 0 5px">
-					<input :disabled="!enabled" :checked="configuration.value" v-on:input="porpagate_value_update($event.target.checked)"  :type="html_input_type">
+					<input :disabled="!enabled" :checked="configuration.value" v-on:input="porpagate_value_update($event.target.checked)"  :type="html_data_type">
 					<span class="slider round"></span>
 				</label>
 			</div>
@@ -16,7 +16,7 @@
 						:placeholder="configuration.value"
 						:value="local_value"
 						v-on:input="porpagate_value_update($event.target.value)"
-						:type="html_input_type"
+						:type="html_data_type"
 						:min="configuration.constraints.min"
 						:max="configuration.constraints.max"
 						:minlength="configuration.constraints.length_max"
@@ -24,7 +24,10 @@
 				>
 			</div>
 			<div class="input-container" v-else-if="html_type_group === 'select'">
-				<select :disabled="!enabled" required :value="local_value" v-on:input="porpagate_value_update($event.target.value)">
+				<div v-if="html_data_type === null">
+					<p>Type enum&lt;{{ configuration.type }}&gt;{{ configuration.enum }}; is not supported yet</p>
+				</div>
+				<select v-else :disabled="!enabled" required :value="local_value" v-on:input="porpagate_value_update($event.target.value)">
 					<option v-for="option in configuration.enum" :key="configuration.key+'_'+option" :value="option">{{ option | capitalize }}</option>
 				</select>
 			</div>
@@ -90,20 +93,21 @@
 				}
 				return null;
 			},
-			html_input_type() {
+			html_data_type() {
 				switch (this.configuration.type) {
 					case "bool":
 						return "checkbox"
 					case "int":
 					case "double":
 						return "number"
+					case "string":
 					case "text":
 					case "ipaddress":
 						return "text"
 					case "password":
 						return "password"
 				}
-				return "text"
+				return null
 			}
 		},
 		methods: {
