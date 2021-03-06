@@ -19,7 +19,7 @@
 						:type="html_data_type"
 						:min="configuration.constrains.min"
 						:max="configuration.constrains.max"
-						:minlength="configuration.constrains.length_max"
+						:minlength="configuration.constrains.length_min"
 						:maxlength="configuration.constrains.length_max"
 				>
 			</div>
@@ -56,10 +56,11 @@
 		},
 		computed: {
 			enabled() {
+				let should_enable = true;
 				for(let i=0; i<this.configuration.enabled_by.length; i++) {
-					if( this.configuration.enabled_by_config[ this.configuration.enabled_by[i] ] === false ) return false;
+					if( this.configuration.enabled_by_config[ this.configuration.enabled_by[i] ] === false ) should_enable = false;
 				}
-				return true;
+				return should_enable;
 			},
 			is_valid() {
 				switch (this.configuration.type) {

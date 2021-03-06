@@ -6,7 +6,7 @@ function defHasSubKeyKeyParm(sub_config_key, key, parm) {
 
 export function generateKeysMapper(config, sub_config_key, key_filter) {
 	return function (key) {
-		if(key_filter!=="" && key.startsWith(key_filter)) return ;
+		if(key_filter!=="" && !key.startsWith(key_filter)) return ;
 		return {
 			key,
 			value: config[sub_config_key][key],
@@ -26,20 +26,21 @@ export function generateKeysMapper(config, sub_config_key, key_filter) {
 	}
 }
 
-function typeToJsonType(type) {
+function typeToConstrainsType(type) {
 	switch (type) {
 		case "bool":
 			return "bool"
 		case "int":
 		case "double":
 			return "number"
+		case "ipaddress":
+			return "ipaddress"
 		case "string":
 		case "text":
-		case "ipaddress":
 		case "password":
 			return "string"
 	}
-	return null;
+	return "string";
 }
 export function generateconstrainErrorsReport(config) {
 	let errors = [];
@@ -47,20 +48,32 @@ export function generateconstrainErrorsReport(config) {
 	for(const sub_config_key of Object.keys(config)) {
 		for(const key of Object.keys(config[sub_config_key])) {
 
+			const value = config[sub_config_key][key]
+			const type = typeToConstrainsType(definitions[sub_config_key][key].type)
+			if(defHasSubKeyKeyParm(sub_config_key,key,"constrains_enabled_by")){
+				let should_ignore_constrains = true;
+
+				for (const k of definitions[sub_config_key][key].constrains_enabled_by) {
+					should_ignore_constrains = should_ignore_constrains && config[sub_config_key][k]
+				}
+
+				if(!should_ignore_constrains) continue;
+			}
+
 			if(defHasSubKeyKeyParm(sub_config_key,key,"constrains")) {
 				const constrains = definitions[sub_config_key][key].constrains
-				const type = typeToJsonType(definitions[sub_config_key][key].type || "string")
-				const value = config[sub_config_key][key]
-
 				if(type==="bool") continue;
 				if(type==="string") {
-					if(constrains.min_length !== undefined && value.length<constrains.min_length) errors.push({sub_config_key,key,failed_constrain:"min_length",value,expected:constrains.min_length})
-					if(constrains.max_length !== undefined && value.length>constrains.max_length) errors.push({sub_config_key,key,failed_constrain:"max_length",value,expected:constrains.max_length})
+					if(constrains.length_min !== undefined && value.length<constrains.length_min) errors.push({sub_config_key,key,failed_constrain:"length_min",value,expected:constrains.length_min})
+					if(constrains.length_max !== undefined && value.length>constrains.length_max) errors.push({sub_config_key,key,failed_constrain:"length_max",value,expected:constrains.length_max})
 				}
 				if(type==="number") {
 					if(constrains.min !== undefined && value<constrains.min) errors.push({sub_config_key,key,failed_constrain:"min",value,expected:constrains.min});
 					if(constrains.max !== undefined && value>constrains.max) errors.push({sub_config_key,key,failed_constrain:"max",value,expected:constrains.max});
 				}
+			}
+			if(type==="ipaddress") {
+				if(value.match(/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/) == null) errors.push({sub_config_key,key,failed_constrain:"regex",value,expected:"XXX.XXX.XXX.XXX"})
 			}
 
 		}
@@ -82,12 +95,14 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["auth_enabled"]
         },
 		auth_password: {
             type: "password",
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["auth_enabled"]
         },
 	},
 	mqtt: {
@@ -96,7 +111,8 @@ export const definitions = {
         },
 		server: {
             type: "ipaddress",
-			enabled_by: ["enabled"]
+			enabled_by: ["enabled"],
+			constrains_enabled_by: ["enabled"]
         },
 		port: {
             type: "int",
@@ -104,7 +120,8 @@ export const definitions = {
 				min: 1,
 				max: 320000,
 			},
-			enabled_by: ["enabled"]
+			enabled_by: ["enabled"],
+			constrains_enabled_by: ["enabled"]
         },
 		id: {
             type: "string",
@@ -112,6 +129,7 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["enabled"]
         },
 		user: {
             type: "string",
@@ -119,6 +137,7 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["enabled"]
         },
 		password: {
             type: "password",
@@ -126,6 +145,7 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["enabled"]
         },
 		topic_in: {
             type: "string",
@@ -133,6 +153,7 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["enabled"]
         },
 		topic_out: {
             type: "string",
@@ -140,6 +161,7 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["enabled"]
         },
 		topic_lwt: {
             type: "string",
@@ -147,6 +169,7 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["enabled","lwt_enabled"]
         },
 		lwt_enabled: {
             type: "bool",
@@ -159,7 +182,8 @@ export const definitions = {
         },
 		client_dhcp_enabled: {
             type: "bool",
-			enabled_by: ["client_enabled"]
+			enabled_by: ["client_enabled"],
+			constrains_enabled_by: ["client_enabled"]
         },
 		client_ssid: {
             type: "string",
@@ -167,6 +191,7 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["client_enabled"]
         },
 		client_password: {
             type: "string",
@@ -174,22 +199,27 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["client_enabled"]
         },
 		client_ip: {
             type: "ipaddress",
-			enabled_by: ["client_enabled","client_dhcp_enabled"]
+			enabled_by: ["client_enabled","client_dhcp_enabled"],
+			constrains_enabled_by: ["client_enabled","client_dhcp_enabled"]
         },
 		client_mask: {
             type: "ipaddress",
-			enabled_by: ["client_enabled","client_dhcp_enabled"]
+			enabled_by: ["client_enabled","client_dhcp_enabled"],
+			constrains_enabled_by: ["client_enabled","client_dhcp_enabled"]
         },
 		client_gateway: {
             type: "ipaddress",
-			enabled_by: ["client_enabled","client_dhcp_enabled"]
+			enabled_by: ["client_enabled","client_dhcp_enabled"],
+			constrains_enabled_by: ["client_enabled","client_dhcp_enabled"]
         },
 		client_dns: {
             type: "ipaddress",
-			enabled_by: ["client_enabled","client_dhcp_enabled"]
+			enabled_by: ["client_enabled","client_dhcp_enabled"],
+			constrains_enabled_by: ["client_enabled","client_dhcp_enabled"]
         },
 		ap_enabled: {
             type: "bool",
@@ -200,6 +230,7 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["ap_enabled"]
         },
 		ap_password: {
             type: "string",
@@ -207,18 +238,22 @@ export const definitions = {
 			constrains: {
 				length_min: 1,
 			},
+			constrains_enabled_by: ["ap_enabled"]
         },
 		ap_ip: {
             type: "ipaddress",
-			enabled_by: ["ap_enabled"]
+			enabled_by: ["ap_enabled"],
+			constrains_enabled_by: ["ap_enabled"]
         },
 		ap_network: {
             type: "ipaddress",
-			enabled_by: ["ap_enabled"]
+			enabled_by: ["ap_enabled"],
+			constrains_enabled_by: ["ap_enabled"]
         },
 		ap_mask: {
             type: "ipaddress",
-			enabled_by: ["ap_enabled"]
+			enabled_by: ["ap_enabled"],
+			constrains_enabled_by: ["ap_enabled"]
         },
 	},
 	signal: {

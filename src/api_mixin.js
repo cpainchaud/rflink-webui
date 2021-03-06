@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import { capitalize } from "./utils"
 import { generateconstrainErrorsReport } from "./definitons"
 
 export const api_mixin = {
@@ -42,8 +43,7 @@ export const api_mixin = {
 			if(errors.length>0) {
 				let list="<ul>"
 				for(const error of errors) {
-					console.log("zrfe")
-					list+=`<li><b>${error.sub_config_key} / ${error.key}</b> failed ${error.failed_constrain} constrain, value is <b>${error.value}</b> constrain <b>expected ${error.expected}</b></li>`
+					list+=`<li><b>${capitalize(error.sub_config_key)} ${capitalize(error.key.replaceAll("_"," "))}</b> failed ${error.failed_constrain} constrain, value is <b>"${error.value}"</b> constrain expected <b>${error.expected}</b></li>`
 				}
 				list+="</ul>"
 
