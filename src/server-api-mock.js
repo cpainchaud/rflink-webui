@@ -59,7 +59,8 @@ let config_data = {
 		"tx_data": 2,
 		"tx_vcc": 4,
 		"tx_nmos": -1,
-		"tx_pmos": -1
+		"tx_pmos": -1,
+		"tx_gnd": -1
 	}
 }
 

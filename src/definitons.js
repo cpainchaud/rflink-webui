@@ -6,7 +6,7 @@ function defHasSubKeyKeyParm(sub_config_key, key, parm) {
 
 export function generateKeysMapper(config, sub_config_key, key_filter) {
 	return function (key) {
-		if(key_filter!=="" && !key.startsWith(key_filter)) return ;
+		if(key_filter !== undefined && key_filter !== null && key_filter!=="" && !key.startsWith(key_filter)) return ;
 		return {
 			key,
 			value: config[sub_config_key][key],
