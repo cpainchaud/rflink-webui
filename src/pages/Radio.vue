@@ -22,7 +22,7 @@
 		computed: {
 			fields() {
 				if(this.config.radio ==null) return []
-				return Object.keys(this.config.radio).map(generateKeysMapper(this.config, "radio")).filter((x)=>{ return !!x })
+				return Object.keys(this.config.radio).map(generateKeysMapper(this.config, "radio", "")).filter((x)=>{ return !!x })
 			}
 		},
 		methods: {

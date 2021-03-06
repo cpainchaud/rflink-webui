@@ -1,3 +1,9 @@
+/**
+ * Genereates a capitalized vertion of the input string
+ * @function
+ * @param {String} value - The input value
+ * @return {String} The capitalized value
+ */
 export function capitalize (value) {
 	if (!value) return ''
 	value = value.toString()
