@@ -21,7 +21,25 @@ export const api_mixin = {
 			}
 		}
 	},
+	mounted() {
+		this.reload_config();
+		this.$root.$on('reload_btn', this.reloadevent_handler)
+	},
+	unmounted() {
+		this.$root.$off('reload_btn', this.reloadevent_handler)
+	},
 	methods: {
+		reloadevent_handler() {
+			this.config = {
+				portal: {},
+				mqtt: {},
+				wifi: {},
+				signal: {},
+				radio: {}
+			}
+			this.reload_config();
+			this.reload_status();
+		},
 		reload_status() {
 			axios.get("/api/status").then(response => {
 				this.$set(this,"status",response.data)
@@ -117,8 +135,5 @@ export const api_mixin = {
 				//this.$toasts.push({ type: 'error', message: 'A network error occured while asking for a reboot: '+error, duration:10000 })
 			});
 		}
-	},
-	mounted() {
-		this.reload_config();
 	}
 }

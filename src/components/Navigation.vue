@@ -26,6 +26,9 @@
 			<div style="display: flex; justify-content: center; flex-direction: column">
 				<h2 class="white" style="margin: 0">RFLINK-ESP</h2>
 			</div>
+			<div class="menu-btn-container">
+				<button @click="$root.$emit('reload_btn')" class="menu-btn">&#128472;</button>
+			</div>
 		</header>
 	</div>
 </template>
@@ -111,7 +114,7 @@
 		background-color: #333;
 		padding: .5em;
 		display: grid;
-		grid-template-columns: auto auto;
+		grid-template-columns: auto auto auto;
 		justify-items: stretch;
 	}
 
@@ -121,6 +124,23 @@
 		border: 1px solid white;
 		border-radius: 5px;
 		padding: 5px 10px;
+	}
+
+	header > .menu-btn-container {
+		padding-bottom: 5px;
+		display: grid;
+		grid-template-columns: auto;
+		justify-items: right;
+	}
+	.menu-btn {
+		color: #fff;
+		font-size: 25px;
+		background-color: transparent;
+		border: 1px solid white;
+		border-radius: 5px;
+		padding: 0px 15px;
+		height: 100%;
+		width: auto;
 	}
 
 	.menu {
