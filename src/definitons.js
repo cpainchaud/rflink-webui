@@ -347,6 +347,12 @@ export const definitions = {
 				min: -1,
 			},
         },
+		tx_gnd: {
+            type: "int",
+			constrains: {
+				min: -1,
+			},
+        },
     }
   
 }
