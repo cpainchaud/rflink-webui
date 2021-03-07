@@ -240,9 +240,6 @@ export const definitions = {
 		client_password: {
             type: "password",
 			enabled_by: ["client_enabled"],
-			constraints: {
-				length_min: 1,
-			},
 			constraints_enabled_by: ["client_enabled"]
         },
 		client_ip: {
@@ -279,9 +276,6 @@ export const definitions = {
 		ap_password: {
             type: "password",
 			enabled_by: ["ap_enabled"],
-			constraints: {
-				length_min: 1,
-			},
 			constraints_enabled_by: ["ap_enabled"]
         },
 		ap_ip: {
