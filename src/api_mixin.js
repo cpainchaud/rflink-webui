@@ -2,7 +2,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import { capitalize } from "./utils"
-import { generateconstrainErrorsReport } from "./definitons"
+import { generateconstraintErrorsReport } from "./definitons"
 
 export const api_mixin = {
 	data: function () {
@@ -57,11 +57,11 @@ export const api_mixin = {
 			});
 		},
 		save_config() {
-			const errors = generateconstrainErrorsReport(this.config)
+			const errors = generateconstraintErrorsReport(this.config)
 			if(errors.length>0) {
 				let list="<ul>"
 				for(const error of errors) {
-					list+=`<li><b>${capitalize(error.sub_config_key)} ${capitalize(error.key.replaceAll("_"," "))}</b> failed ${error.failed_constrain} constrain, value is <b>"${error.value}"</b> constrain expected <b>${error.expected}</b></li>`
+					list+=`<li><b>${capitalize(error.sub_config_key)} ${capitalize(error.key.replaceAll("_"," "))}</b> failed ${error.failed_constraint} constraint, value is <b>"${error.value}"</b> constraint expected <b>${error.expected}</b></li>`
 				}
 				list+="</ul>"
 
