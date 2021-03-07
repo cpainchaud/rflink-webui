@@ -9,7 +9,7 @@ import { capitalize } from "./utils"
  * @return {boolean} True if the parameter exists
  */
 function defHasSubKeyKeyParm(sub_config_key, key, parm) {
-	return definitions[sub_config_key][key] !== undefined && definitions[sub_config_key][key][parm] !== undefined
+	return definitions[sub_config_key] !== undefined && definitions[sub_config_key][key] !== undefined && definitions[sub_config_key][key][parm] !== undefined
 }
 
 /**
@@ -77,7 +77,7 @@ export function generateConstraintErrorsReport(config) {
 		for(const key of Object.keys(config[sub_config_key])) {
 
 			const value = config[sub_config_key][key]
-			const type = typeToconstraintsType(definitions[sub_config_key][key].type)
+			const type = typeToconstraintsType(defHasSubKeyKeyParm(sub_config_key,key,"type") ? definitions[sub_config_key][key].type : ((typeof config[sub_config_key][key]) === "number" ? "number" : "string"),)
 			if(defHasSubKeyKeyParm(sub_config_key,key,"constraints_enabled_by")){
 				let should_ignore_constraints = true;
 
