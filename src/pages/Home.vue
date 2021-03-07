@@ -40,7 +40,7 @@
 					<td v-if="status.network.wifi_ap" :class="[`status-${status.network.wifi_ap.status}`]">{{ status.network.wifi_ap.status }}</td>
 				</tr>
 
-				<tr><td rowspan="3" class="category">Plugins</td></tr>
+				<!--<tr><td rowspan="3" class="category">Plugins</td></tr>
 				<tr>
 					<td class="setting">Count</td>
 					<td v-if="status.plugins">{{ status.plugins.count }}</td>
@@ -48,7 +48,7 @@
 				<tr>
 					<td class="setting">Active</td>
 					<td v-if="status.plugins">{{ status.plugins.active_count }}</td>
-				</tr>
+				</tr>-->
 
 			</table>
 		</div>
@@ -75,7 +75,7 @@
 		},
 		computed: {
 			loaded() {
-				return this.status.network !== undefined && this.status.plugins !== undefined && this.status.uptime !== 0
+				return this.status.network !== undefined && this.status.uptime !== 0
 			}
 		},
 		methods: {

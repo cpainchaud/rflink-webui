@@ -103,10 +103,10 @@ let get_status_data = {
 			"_status_comment": "enum [enabled, disabled]"
 		}
 	},
-	"plugins": {
+	/*"plugins": {
 		"count": 4,
 		"active_count": 3
-	}
+	}*/
 }
 
 export function makeServer () {
