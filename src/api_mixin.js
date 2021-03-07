@@ -2,7 +2,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import { capitalize } from "./utils"
-import { generateconstraintErrorsReport } from "./definitons"
+import { generateConstraintErrorsReport } from "./definitons"
 
 export const api_mixin = {
 	data: function () {
@@ -57,7 +57,7 @@ export const api_mixin = {
 			});
 		},
 		save_config() {
-			const errors = generateconstraintErrorsReport(this.config)
+			const errors = generateConstraintErrorsReport(this.config)
 			if(errors.length>0) {
 				let list="<ul>"
 				for(const error of errors) {

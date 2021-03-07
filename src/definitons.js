@@ -70,7 +70,7 @@ function typeToconstraintsType(type) {
  * @param {Object} config - The configuration to check
  * @return {Array} True if the parameter exists
  */
-export function generateconstrainErrorsReport(config) {
+export function generateConstraintErrorsReport(config) {
 	let errors = [];
 
 	for(const sub_config_key of Object.keys(config)) {
@@ -238,7 +238,7 @@ export const definitions = {
 			constraints_enabled_by: ["client_enabled"]
         },
 		client_password: {
-            type: "string",
+            type: "password",
 			enabled_by: ["client_enabled"],
 			constraints: {
 				length_min: 1,
@@ -277,7 +277,7 @@ export const definitions = {
 			constraints_enabled_by: ["ap_enabled"]
         },
 		ap_password: {
-            type: "string",
+            type: "password",
 			enabled_by: ["ap_enabled"],
 			constraints: {
 				length_min: 1,
