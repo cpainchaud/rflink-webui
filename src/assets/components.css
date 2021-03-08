@@ -70,6 +70,7 @@ input[type="text"],input[type="password"],input[type="number"],select {
 	width: 100%;
 	border: 1px solid gray;
 	border-radius: 5px;
+	-webkit-appearance: none;
 }
 
 
@@ -81,13 +82,14 @@ input[type="text"],input[type="password"],input[type="number"],select {
 	BUTTON
 
  */
-button,input[type="submit"] {
-	margin: 3px;
+button,input[type="submit"],input[type="file"]::-webkit-file-upload-button {
+	margin: 3px 0;
 	padding: 8px;
 	font-size: 0.9rem;
 	width: 100%;
 	cursor: pointer;
 	border-radius: 5px;
+	-webkit-appearance: none;
 }
 .btn-green {
 	background-color: yellowgreen;
