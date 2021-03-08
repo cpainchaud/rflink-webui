@@ -228,6 +228,18 @@ export const definitions = {
 			type: "bool",
 			enabled_by: ["enabled"]
 		},
+		ssl_enabled: {
+			type: "bool",
+			enabled_by: ["enabled"]
+		},
+		ssl_insecure: {
+			type: "bool",
+			enabled_by: ["enabled","ssl_enabled"]
+		},
+		ca_cert: {
+			type: "bool",
+			enabled_by: ["enabled","ssl_enabled"]
+		},
 	},
 	wifi: {
 		client_enabled: {
