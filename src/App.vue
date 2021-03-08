@@ -1,9 +1,10 @@
 <template>
 	<div id="app" style="height: 100%">
-		<Navigation></Navigation>
-		<div style="height:calc(100vh - 64px - 10px*2); margin: 5px;" >
+		<Navigation>
 			<router-view></router-view>
-		</div>
+		</Navigation>
+		<!--<div style="height:calc(100vh - 64px - 10px*2); margin: 5px;" >
+		</div>-->
 	</div>
 </template>
 
