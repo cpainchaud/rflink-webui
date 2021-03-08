@@ -12,6 +12,17 @@ function defHasSubKeyKeyParm(sub_config_key, key, parm) {
 	return definitions[sub_config_key] !== undefined && definitions[sub_config_key][key] !== undefined && definitions[sub_config_key][key][parm] !== undefined
 }
 
+function defGuessType(variable) {
+	switch (typeof variable) {
+		case "number":
+			return "number"
+		case "boolean":
+			return "bool"
+		default:
+			return "string"
+	}
+}
+
 /**
  * Generate an map function for converting api data to the AutoTypeField fields
  * @function
@@ -29,7 +40,7 @@ export function generateKeysMapper(config, sub_config_key, key_filter) {
 
 			name: defHasSubKeyKeyParm(sub_config_key,key,"name") ? definitions[sub_config_key][key].name : capitalize( key.replaceAll(key_filter,"").replaceAll("_", " ") ),
 
-			type:  defHasSubKeyKeyParm(sub_config_key,key,"type") ? definitions[sub_config_key][key].type : ((typeof config[sub_config_key][key]) === "number" ? "number" : "string"),
+			type:  defHasSubKeyKeyParm(sub_config_key,key,"type") ? definitions[sub_config_key][key].type : defGuessType(config[sub_config_key][key]),
 			enum:  defHasSubKeyKeyParm(sub_config_key,key,"enum") ? definitions[sub_config_key][key].enum : null,
 
 			enabled_by: defHasSubKeyKeyParm(sub_config_key,key,"enabled_by") ? definitions[sub_config_key][key].enabled_by : [],
@@ -77,7 +88,7 @@ export function generateConstraintErrorsReport(config) {
 		for(const key of Object.keys(config[sub_config_key])) {
 
 			const value = config[sub_config_key][key]
-			const type = typeToconstraintsType(defHasSubKeyKeyParm(sub_config_key,key,"type") ? definitions[sub_config_key][key].type : ((typeof config[sub_config_key][key]) === "number" ? "number" : "string"),)
+			const type = typeToconstraintsType(defHasSubKeyKeyParm(sub_config_key,key,"type") ? definitions[sub_config_key][key].type : defGuessType(config[sub_config_key][key]))
 			if(defHasSubKeyKeyParm(sub_config_key,key,"constraints_enabled_by")){
 				let should_ignore_constraints = true;
 
