@@ -217,6 +217,7 @@ export const definitions = {
 			constraints_enabled_by: ["enabled"]
 		},
 		topic_lwt: {
+			name: "Topic LWT",
 			type: "string",
 			enabled_by: ["enabled", "lwt_enabled"],
 			constraints: {
@@ -225,6 +226,7 @@ export const definitions = {
 			constraints_enabled_by: ["enabled", "lwt_enabled"]
 		},
 		lwt_enabled: {
+			name: "LWT Enabled",
 			type: "bool",
 			enabled_by: ["enabled"]
 		},
