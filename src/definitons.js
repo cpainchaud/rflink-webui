@@ -179,7 +179,6 @@ export const definitions = {
 			type: "string",
 			enabled_by: ["enabled"],
 			constraints: {
-				length_min: 1,
 			},
 			constraints_enabled_by: ["enabled"]
 		},
@@ -187,7 +186,6 @@ export const definitions = {
 			type: "password",
 			enabled_by: ["enabled"],
 			constraints: {
-				length_min: 1,
 			},
 			constraints_enabled_by: ["enabled"]
 		},
