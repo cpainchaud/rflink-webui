@@ -127,305 +127,305 @@ Each parameter is a object containing (* are required):
         - max        : Only applied when the type is a number. Maximum value
  */
 export const definitions = {
-    portal: {
+	portal: {
 		enabled: {
-            type: "bool",
-        },
+			type: "bool",
+		},
 		auth_enabled: {
-            type: "bool",
-        },
+			type: "bool",
+		},
 		auth_user: {
-            type: "string",
+			type: "string",
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["auth_enabled"]
-        },
+		},
 		auth_password: {
-            type: "password",
+			type: "password",
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["auth_enabled"]
-        },
+		},
 	},
 	mqtt: {
 		enabled: {
-            type: "bool",
-        },
+			type: "bool",
+		},
 		server: {
-            type: "ipaddress",
+			type: "ipaddress",
 			enabled_by: ["enabled"],
 			constraints_enabled_by: ["enabled"]
-        },
+		},
 		port: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 1,
 				max: 320000,
 			},
 			enabled_by: ["enabled"],
 			constraints_enabled_by: ["enabled"]
-        },
+		},
 		id: {
-            type: "string",
+			type: "string",
 			enabled_by: ["enabled"],
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["enabled"]
-        },
+		},
 		user: {
-            type: "string",
+			type: "string",
 			enabled_by: ["enabled"],
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["enabled"]
-        },
+		},
 		password: {
-            type: "password",
+			type: "password",
 			enabled_by: ["enabled"],
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["enabled"]
-        },
+		},
 		topic_in: {
-            type: "string",
+			type: "string",
 			enabled_by: ["enabled"],
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["enabled"]
-        },
+		},
 		topic_out: {
-            type: "string",
+			type: "string",
 			enabled_by: ["enabled"],
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["enabled"]
-        },
+		},
 		topic_lwt: {
-            type: "string",
-			enabled_by: ["enabled","lwt_enabled"],
+			type: "string",
+			enabled_by: ["enabled", "lwt_enabled"],
 			constraints: {
 				length_min: 1,
 			},
-			constraints_enabled_by: ["enabled","lwt_enabled"]
-        },
+			constraints_enabled_by: ["enabled", "lwt_enabled"]
+		},
 		lwt_enabled: {
-            type: "bool",
+			type: "bool",
 			enabled_by: ["enabled"]
-        },
+		},
 	},
 	wifi: {
 		client_enabled: {
-            type: "bool",
-        },
+			type: "bool",
+		},
 		client_dhcp_enabled: {
-            type: "bool",
+			type: "bool",
 			enabled_by: ["client_enabled"],
 			constraints_enabled_by: ["client_enabled"]
-        },
+		},
 		client_ssid: {
-            type: "string",
+			type: "string",
 			enabled_by: ["client_enabled"],
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["client_enabled"]
-        },
+		},
 		client_password: {
-            type: "password",
+			type: "password",
 			enabled_by: ["client_enabled"],
 			constraints_enabled_by: ["client_enabled"]
-        },
+		},
 		client_ip: {
-            type: "ipaddress",
-			enabled_by: ["client_enabled","client_dhcp_enabled"],
-			constraints_enabled_by: ["client_enabled","client_dhcp_enabled"]
-        },
+			type: "ipaddress",
+			enabled_by: ["client_enabled", "client_dhcp_enabled"],
+			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"]
+		},
 		client_mask: {
-            type: "ipaddress",
-			enabled_by: ["client_enabled","client_dhcp_enabled"],
-			constraints_enabled_by: ["client_enabled","client_dhcp_enabled"]
-        },
+			type: "ipaddress",
+			enabled_by: ["client_enabled", "client_dhcp_enabled"],
+			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"]
+		},
 		client_gateway: {
-            type: "ipaddress",
-			enabled_by: ["client_enabled","client_dhcp_enabled"],
-			constraints_enabled_by: ["client_enabled","client_dhcp_enabled"]
-        },
+			type: "ipaddress",
+			enabled_by: ["client_enabled", "client_dhcp_enabled"],
+			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"]
+		},
 		client_dns: {
-            type: "ipaddress",
-			enabled_by: ["client_enabled","client_dhcp_enabled"],
-			constraints_enabled_by: ["client_enabled","client_dhcp_enabled"]
-        },
+			type: "ipaddress",
+			enabled_by: ["client_enabled", "client_dhcp_enabled"],
+			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"]
+		},
 		ap_enabled: {
-            type: "bool",
-        },
+			type: "bool",
+		},
 		ap_ssid: {
-            type: "string",
+			type: "string",
 			enabled_by: ["ap_enabled"],
 			constraints: {
 				length_min: 1,
 			},
 			constraints_enabled_by: ["ap_enabled"]
-        },
+		},
 		ap_password: {
-            type: "password",
+			type: "password",
 			enabled_by: ["ap_enabled"],
 			constraints_enabled_by: ["ap_enabled"]
-        },
+		},
 		ap_ip: {
-            type: "ipaddress",
+			type: "ipaddress",
 			enabled_by: ["ap_enabled"],
 			constraints_enabled_by: ["ap_enabled"]
-        },
+		},
 		ap_network: {
-            type: "ipaddress",
+			type: "ipaddress",
 			enabled_by: ["ap_enabled"],
 			constraints_enabled_by: ["ap_enabled"]
-        },
+		},
 		ap_mask: {
-            type: "ipaddress",
+			type: "ipaddress",
 			enabled_by: ["ap_enabled"],
 			constraints_enabled_by: ["ap_enabled"]
-        },
+		},
 	},
 	signal: {
 		sample_rate: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 0,
 				max: 256,
 			},
-        },
+		},
 		min_raw_pulses: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 0,
 				max: 291,
 			},
-        },
+		},
 		seek_timeout: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 0,
 			},
-            unit: "ms",
-        },
+			unit: "ms",
+		},
 		min_preamble: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 0,
 			},
-            unit: "us",
-        },
+			unit: "us",
+		},
 		min_pulse_len: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 0,
 			},
-            unit: "us",
-        },
+			unit: "us",
+		},
 		signal_end_timeout: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 0,
 			},
-            unit: "us",
-        },
+			unit: "us",
+		},
 		signal_repeat_time: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 0,
 			},
-            unit: "ms",
-        },
+			unit: "ms",
+		},
 		scan_high_time: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: 0,
 			},
-            unit: "ms",
-        },
+			unit: "ms",
+		},
 		async_mode_enabled: {
-            type: "bool",
-        },
+			type: "bool",
+		},
 	},
 	radio: {
-		hardware:{
-            type: "string",
-            enum: ["generic", "RFM69"],
-        },
-		rx_data:  {
-            type: "int",
+		hardware: {
+			type: "string",
+			enum: ["generic", "RFM69"],
+		},
+		rx_data: {
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		rx_vcc: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		rx_nmos: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		rx_pmos: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		rx_gnd: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		rx_na: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
-		tx_data:{
-            type: "int",
+		},
+		tx_data: {
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		tx_vcc: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		tx_nmos: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		tx_pmos: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
+		},
 		tx_gnd: {
-            type: "int",
+			type: "int",
 			constraints: {
 				min: -1,
 			},
-        },
-    }
-  
+		},
+	}
+
 }
