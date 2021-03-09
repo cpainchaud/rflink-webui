@@ -127,7 +127,9 @@ Each module contains multiple parameter (known as key in the code).
 Each parameter is a object containing (* are required):
   - type*                 : It's type which can be: bool,string,int,password,ipaddress (If not present the code will either select number or text)
   - name                  : The field can be used to override the auto generated name (Which is the key with space instead of underscore and capitalized)
-  - enum                  : The field will become a select with the value contained in the array
+  - enum                  : The field will become a select. the field can either be:
+        - an array   : In which case it is displayed as is in the select
+        - an object  : In which case the select will treat the keys as values and the values as the text
   - enabled_by            : This field controls if the field is disabled. It should be an array that contain the name of
                             other bool keys in the same module that are AND together to determine if it is enabled
   - constraints_enabled_by : This field controls if the constraints or type specific validation should be enabled. Works on the same principle as enabled_by
@@ -381,7 +383,8 @@ export const definitions = {
 	radio: {
 		hardware: {
 			type: "string",
-			enum: ["generic", "RFM69CW", "RFM69HCW"],
+			//enum: ["generic", "RFM69CW", "RFM69HCW"],
+			enum: {"generic":"Generic", "RFM69CW":"RFM69CW", "RFM69HCW":"RFM69HCW"},
 		},
 		rx_data: {
 			type: "int",

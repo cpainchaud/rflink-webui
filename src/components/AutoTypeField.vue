@@ -28,7 +28,12 @@
 					<p>Type enum&lt;{{ configuration.type }}&gt;{{ configuration.enum }}; is not supported yet</p>
 				</div>
 				<select v-else :disabled="!enabled" required :value="local_value" v-on:input="porpagate_value_update($event.target.value)">
-					<option v-for="option in configuration.enum" :key="configuration.key+'_'+option" :value="option">{{ option | capitalize }}</option>
+					<template v-if="Array.isArray(configuration.enum)">
+						<option v-for="option in configuration.enum" :key="configuration.key+'_'+option" :value="option">{{ option }}</option>
+					</template>
+					<template v-else>
+						<option v-for="key in Object.keys(configuration.enum)" :key="configuration.key+'_'+key" :value="key">{{ configuration.enum[key] }}</option>
+					</template>
 				</select>
 			</div>
 			<div v-else>
