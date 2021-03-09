@@ -72,7 +72,9 @@ input[type="text"],input[type="password"],input[type="number"],select {
 	border-radius: 5px;
 	-webkit-appearance: none;
 }
-
+select {
+	-webkit-appearance: menulist;
+}
 
 
 
