@@ -12,7 +12,6 @@
 				<input
 						:disabled="!enabled"
 						:class="{'invalid':!is_valid}"
-						required
 						:placeholder="configuration.value"
 						:value="local_value"
 						v-on:input="porpagate_value_update($event.target.value)"
