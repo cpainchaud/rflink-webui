@@ -40,7 +40,7 @@ input:checked + .slider {
 	background-color: #2196F3;
 }
 input:disabled + .slider {
-	background-color: #eeeeee;
+	background-color: #f6f6f6;
 }
 input:focus + .slider {
 	box-shadow: 0 0 1px #2196F3;
@@ -63,6 +63,9 @@ input:checked + .slider:before {
 	INPUT
 
  */
+input[type="text"]:disabled,input[type="password"]:disabled,input[type="number"]:disabled,select:disabled {
+	opacity: 25%;
+}
 input[type="text"],input[type="password"],input[type="number"],select {
 	padding: 8px;
 	font-size: 0.9rem;
