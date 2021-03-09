@@ -1,5 +1,5 @@
 <template>
-	<tr>
+	<tr v-if="!hidden">
 		<td>{{ configuration.name }}</td>
 		<td>
 			<div class="input-container" v-if="html_type_group === 'checkbox'">
@@ -65,6 +65,9 @@
 					if( this.configuration.enabled_by_config[ this.configuration.enabled_by[i] ] === false ) should_enable = false;
 				}
 				return should_enable;
+			},
+			hidden() {
+				return this.configuration.hide_on_disabled && !this.enabled ;
 			},
 			is_valid() {
 				switch (this.configuration.type) {
