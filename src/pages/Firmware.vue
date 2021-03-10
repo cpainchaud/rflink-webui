@@ -27,6 +27,17 @@
 
 			<input type="submit" class="btn-green" value="Flash">
 		</div>
+		<div class="container">
+			<h2 style="margin: 5px 0 15px 0;">Update via HTTP URL</h2>
+				<tr>
+					<td>Firmware URL</td>
+					<th><label>
+						<input required placeholder="https://my.url/here" type="text">
+					</label></th>
+				</tr>
+
+			<input type="submit" class="btn-green" value="Flash">
+		</div>
 	</div>
 </template>
 
