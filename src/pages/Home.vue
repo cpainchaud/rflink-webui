@@ -10,6 +10,16 @@
 					<td v-if="status.uptime" colspan="2">{{ status.uptime | sec_to_human }}</td>
 				</tr>
 
+				<tr><td rowspan="3" class="category">Signals</td></tr>
+				<tr>
+					<td class="setting">Received Count</td>
+					<td v-if="status.signal.received_signal_count" :class="[`status-${status.signal.received_signal_count}`]">{{ status.signal.received_signal_count }}</td>
+				</tr>
+				<tr>
+					<td class="setting">Successfully Decoded</td>
+					<td v-if="status.signal.successfully_decoded_count" :class="[`status-${status.signal.successfully_decoded_count}`]">{{ status.signal.successfully_decoded_count }}</td>
+				</tr>
+
 				<tr><td rowspan="2" class="category">MQTT</td></tr>
 				<tr>
 					<td class="setting">Status</td>
