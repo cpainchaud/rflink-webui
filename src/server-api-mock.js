@@ -103,6 +103,11 @@ let get_status_data = {
 			"_status_comment": "enum [enabled, disabled]"
 		}
 	},
+	"signal":
+	{
+		"received_signal_count":24,
+		"successfully_decoded_count":3
+	},
 	/*"plugins": {
 		"count": 4,
 		"active_count": 3
