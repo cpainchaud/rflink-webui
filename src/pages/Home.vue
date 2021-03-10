@@ -16,13 +16,13 @@
 					<td v-if="status.mqtt.status" :class="[`status-${status.mqtt.status}`]">{{ status.mqtt.status }}</td>
 				</tr>
 
-				<tr><td rowspan="5" class="category">Wifi client</td></tr>
+				<tr><td rowspan="5" class="category">Wifi Client Mode</td></tr>
 				<tr>
 					<td class="setting">Status</td>
 					<td v-if="status.network.wifi_client" :class="[`status-${status.network.wifi_client.status}`]">{{ status.network.wifi_client.status }}</td>
 				</tr>
 				<tr>
-					<td class="setting">Ip address</td>
+					<td class="setting">IP Address</td>
 					<td v-if="status.network.wifi_client">{{ status.network.wifi_client.ip }}</td>
 				</tr>
 				<tr>
@@ -34,7 +34,7 @@
 					<td v-if="status.network.wifi_client">{{ status.network.wifi_client.dns }}</td>
 				</tr>
 
-				<tr><td rowspan="2" class="category">Wifi ap</td></tr>
+				<tr><td rowspan="2" class="category">Wifi Access Point</td></tr>
 				<tr>
 					<td class="setting">Status</td>
 					<td v-if="status.network.wifi_ap" :class="[`status-${status.network.wifi_ap.status}`]">{{ status.network.wifi_ap.status }}</td>
