@@ -11,7 +11,7 @@
 </template>
 
 <script>
-	import { generateKeysMapper } from "../definitons";
+	import {generateKeysMapper, sortFunction} from "../definitons";
 	import {api_mixin} from "../api_mixin";
 	import AutoTypeField from "../components/AutoTypeField";
 
@@ -22,7 +22,7 @@
 		computed: {
 			fields() {
 				if(this.config.radio ==null) return []
-				return Object.keys(this.config.radio).map(generateKeysMapper(this.config, "radio", "")).filter((x)=>{ return !!x })
+				return Object.keys(this.config.radio).map(generateKeysMapper(this.config, "radio", "")).filter((x)=>{ return !!x }).sort(sortFunction)
 			}
 		},
 		methods: {

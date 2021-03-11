@@ -21,7 +21,7 @@
 <script>
 	import {api_mixin} from "../api_mixin";
 	import AutoTypeField from "../components/AutoTypeField";
-	import {generateKeysMapper} from "../definitons";
+	import {generateKeysMapper, sortFunction} from "../definitons";
 
 	export default {
 		name: "Wifi",
@@ -30,12 +30,12 @@
 		computed: {
 			fields_client() {
 				if(this.config.wifi ==null) return []
-				return Object.keys(this.config.wifi).map(generateKeysMapper(this.config, "wifi", "client" )).filter((x)=>{ return !!x })
+				return Object.keys(this.config.wifi).map(generateKeysMapper(this.config, "wifi", "client" )).filter((x)=>{ return !!x }).sort(sortFunction)
 			},
 
 			fields_ap() {
 				if(this.config.wifi ==null) return []
-				return Object.keys(this.config.wifi).map(generateKeysMapper(this.config, "wifi", "ap")).filter((x)=>{ return !!x })
+				return Object.keys(this.config.wifi).map(generateKeysMapper(this.config, "wifi", "ap")).filter((x)=>{ return !!x }).sort(sortFunction)
 			}
 		},
 		methods: {

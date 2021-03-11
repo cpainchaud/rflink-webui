@@ -11,7 +11,7 @@
 </template>
 
 <script>
-	import { generateKeysMapper } from "../definitons";
+	import {generateKeysMapper, sortFunction} from "../definitons";
 	import AutoTypeField from "../components/AutoTypeField";
 	import {api_mixin} from "../api_mixin";
 
@@ -22,7 +22,7 @@
 		computed: {
 			fields() {
 				if(this.config.signal ==null) return []
-				return Object.keys(this.config.signal).map(generateKeysMapper(this.config, "signal", "" )).filter((x)=>{ return !!x })
+				return Object.keys(this.config.signal).map(generateKeysMapper(this.config, "signal", "" )).filter((x)=>{ return !!x }).sort(sortFunction)
 			}
 		},
 		methods: {

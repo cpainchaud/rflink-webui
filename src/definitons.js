@@ -50,8 +50,25 @@ export function generateKeysMapper(config, sub_config_key, key_filter) {
 			constraints: defHasSubKeyKeyParm(sub_config_key,key,"constraints") ? definitions[sub_config_key][key].constraints : {},
 
 			comment:  defHasSubKeyKeyParm(sub_config_key,key,"unit") ? definitions[sub_config_key][key].unit : "",
+
+			order:  defHasSubKeyKeyParm(sub_config_key,key,"order") ? definitions[sub_config_key][key].order : Infinity,
 		}
 	}
+}
+
+/**
+ * Sort function for the settings
+ * @function
+ * @param {Object} a - The first object
+ * @param {Object} b - The second object
+ * @return {number} The result
+ */
+export function sortFunction(a, b) {
+	const orderA = (a.order !== undefined && a.order !== null) ? a.order : Infinity
+	const orderB = (b.order !== undefined && b.order !== null) ? b.order : Infinity
+	if(orderA>orderB) return 1;
+	if(orderA<orderB) return -1;
+	if(orderA===orderB) return 0;
 }
 
 /**
@@ -140,6 +157,7 @@ Each parameter is a object containing (* are required):
         - length_max : Only applied when the type is a string/password. Maximum string length
         - min        : Only applied when the type is a number. Minimum value
         - max        : Only applied when the type is a number. Maximum value
+  - order                 : The field control in which order the info will be displayed. THis is per category
  */
 export const definitions = {
 	portal: {
@@ -167,11 +185,13 @@ export const definitions = {
 	mqtt: {
 		enabled: {
 			type: "bool",
+			order: 0,
 		},
 		server: {
 			type: "ipaddress",
 			enabled_by: ["enabled"],
-			constraints_enabled_by: ["enabled"]
+			constraints_enabled_by: ["enabled"],
+			order: 1,
 		},
 		port: {
 			type: "int",
@@ -180,7 +200,8 @@ export const definitions = {
 				max: 320000,
 			},
 			enabled_by: ["enabled"],
-			constraints_enabled_by: ["enabled"]
+			constraints_enabled_by: ["enabled"],
+			order: 2,
 		},
 		id: {
 			type: "string",
@@ -188,21 +209,24 @@ export const definitions = {
 			constraints: {
 				length_min: 1,
 			},
-			constraints_enabled_by: ["enabled"]
+			constraints_enabled_by: ["enabled"],
+			order: 3,
 		},
 		user: {
 			type: "string",
 			enabled_by: ["enabled"],
 			constraints: {
 			},
-			constraints_enabled_by: ["enabled"]
+			constraints_enabled_by: ["enabled"],
+			order: 4,
 		},
 		password: {
 			type: "password",
 			enabled_by: ["enabled"],
 			constraints: {
 			},
-			constraints_enabled_by: ["enabled"]
+			constraints_enabled_by: ["enabled"],
+			order: 5,
 		},
 		topic_in: {
 			type: "string",
@@ -210,7 +234,8 @@ export const definitions = {
 			constraints: {
 				length_min: 1,
 			},
-			constraints_enabled_by: ["enabled"]
+			constraints_enabled_by: ["enabled"],
+			order: 6,
 		},
 		topic_out: {
 			type: "string",
@@ -218,7 +243,8 @@ export const definitions = {
 			constraints: {
 				length_min: 1,
 			},
-			constraints_enabled_by: ["enabled"]
+			constraints_enabled_by: ["enabled"],
+			order: 7,
 		},
 		topic_lwt: {
 			name: "Topic LWT",
@@ -227,34 +253,41 @@ export const definitions = {
 			constraints: {
 				length_min: 1,
 			},
-			constraints_enabled_by: ["enabled", "lwt_enabled"]
+			constraints_enabled_by: ["enabled", "lwt_enabled"],
+			order: 8,
 		},
 		lwt_enabled: {
 			name: "LWT Enabled",
 			type: "bool",
-			enabled_by: ["enabled"]
+			enabled_by: ["enabled"],
+			order: 9,
 		},
 		ssl_enabled: {
 			type: "bool",
-			enabled_by: ["enabled"]
+			enabled_by: ["enabled"],
+			order: 10,
 		},
 		ssl_insecure: {
 			type: "bool",
-			enabled_by: ["enabled","ssl_enabled"]
+			enabled_by: ["enabled","ssl_enabled"],
+			order: 11,
 		},
 		ca_cert: {
 			type: "bool",
-			enabled_by: ["enabled","ssl_enabled"]
+			enabled_by: ["enabled","ssl_enabled"],
+			order: 12,
 		},
 	},
 	wifi: {
 		client_enabled: {
 			type: "bool",
+			order: 0,
 		},
 		client_dhcp_enabled: {
 			type: "bool",
 			enabled_by: ["client_enabled"],
-			constraints_enabled_by: ["client_enabled"]
+			constraints_enabled_by: ["client_enabled"],
+			order: 1,
 		},
 		client_ssid: {
 			type: "string",
@@ -262,39 +295,46 @@ export const definitions = {
 			constraints: {
 				length_min: 1,
 			},
-			constraints_enabled_by: ["client_enabled"]
+			constraints_enabled_by: ["client_enabled"],
+			order: 2,
 		},
 		client_password: {
 			type: "password",
 			enabled_by: ["client_enabled"],
-			constraints_enabled_by: ["client_enabled"]
+			constraints_enabled_by: ["client_enabled"],
+			order: 3,
 		},
 		client_ip: {
 			type: "ipaddress",
 			enabled_by: ["client_enabled", "client_dhcp_enabled"],
 			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"],
-			hide_on_disabled: true
+			hide_on_disabled: true,
+			order: 4,
 		},
 		client_mask: {
 			type: "ipaddress",
 			enabled_by: ["client_enabled", "client_dhcp_enabled"],
 			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"],
-			hide_on_disabled: true
+			hide_on_disabled: true,
+			order: 5,
 		},
 		client_gateway: {
 			type: "ipaddress",
 			enabled_by: ["client_enabled", "client_dhcp_enabled"],
 			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"],
-			hide_on_disabled: true
+			hide_on_disabled: true,
+			order: 6,
 		},
 		client_dns: {
 			type: "ipaddress",
 			enabled_by: ["client_enabled", "client_dhcp_enabled"],
 			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"],
-			hide_on_disabled: true
+			hide_on_disabled: true,
+			order: 7,
 		},
 		ap_enabled: {
 			type: "bool",
+			order: 8,
 		},
 		ap_ssid: {
 			type: "string",
@@ -302,27 +342,32 @@ export const definitions = {
 			constraints: {
 				length_min: 1,
 			},
-			constraints_enabled_by: ["ap_enabled"]
+			constraints_enabled_by: ["ap_enabled"],
+			order: 9,
 		},
 		ap_password: {
 			type: "password",
 			enabled_by: ["ap_enabled"],
-			constraints_enabled_by: ["ap_enabled"]
+			constraints_enabled_by: ["ap_enabled"],
+			order: 10,
 		},
 		ap_ip: {
 			type: "ipaddress",
 			enabled_by: ["ap_enabled"],
-			constraints_enabled_by: ["ap_enabled"]
+			constraints_enabled_by: ["ap_enabled"],
+			order: 11,
 		},
 		ap_network: {
 			type: "ipaddress",
 			enabled_by: ["ap_enabled"],
-			constraints_enabled_by: ["ap_enabled"]
+			constraints_enabled_by: ["ap_enabled"],
+			order: 12,
 		},
 		ap_mask: {
 			type: "ipaddress",
 			enabled_by: ["ap_enabled"],
-			constraints_enabled_by: ["ap_enabled"]
+			constraints_enabled_by: ["ap_enabled"],
+			order: 13,
 		},
 	},
 	signal: {
@@ -332,6 +377,7 @@ export const definitions = {
 				min: 0,
 				max: 256,
 			},
+			order: 1,
 		},
 		min_raw_pulses: {
 			type: "int",
@@ -339,6 +385,7 @@ export const definitions = {
 				min: 0,
 				max: 291,
 			},
+			order: 2,
 		},
 		seek_timeout: {
 			type: "int",
@@ -346,6 +393,7 @@ export const definitions = {
 				min: 0,
 			},
 			unit: "ms",
+			order: 3,
 		},
 		min_preamble: {
 			type: "int",
@@ -353,6 +401,7 @@ export const definitions = {
 				min: 0,
 			},
 			unit: "us",
+			order: 4,
 		},
 		min_pulse_len: {
 			type: "int",
@@ -360,6 +409,7 @@ export const definitions = {
 				min: 0,
 			},
 			unit: "us",
+			order: 5,
 		},
 		signal_end_timeout: {
 			type: "int",
@@ -367,6 +417,7 @@ export const definitions = {
 				min: 0,
 			},
 			unit: "us",
+			order: 6,
 		},
 		signal_repeat_time: {
 			type: "int",
@@ -374,6 +425,7 @@ export const definitions = {
 				min: 0,
 			},
 			unit: "ms",
+			order: 7,
 		},
 		scan_high_time: {
 			type: "int",
@@ -381,81 +433,95 @@ export const definitions = {
 				min: 0,
 			},
 			unit: "ms",
+			order: 8,
 		},
 		async_mode_enabled: {
 			type: "bool",
+			order: 9,
 		},
 	},
 	radio: {
 		hardware: {
 			type: "string",
 			enum: {"generic":"Generic", "RFM69CW":"RFM69CW", "RFM69HCW":"RFM69HCW", "SX7218":"SX7218"},
+			order: 0,
 		},
 		rx_data: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 1,
 		},
 		rx_vcc: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 2,
 		},
 		rx_nmos: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 3,
 		},
 		rx_pmos: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 4,
 		},
 		rx_gnd: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 5,
 		},
 		rx_na: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 6,
 		},
 		tx_data: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 7,
 		},
 		tx_vcc: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 8,
 		},
 		tx_nmos: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 9,
 		},
 		tx_pmos: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 10,
 		},
 		tx_gnd: {
 			type: "int",
 			constraints: {
 				min: -1,
 			},
+			order: 11,
 		},
 	}
 
