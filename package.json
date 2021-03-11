@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "browser-md5-file": "^1.1.1",
     "core-js": "^3.6.5",
     "sweetalert2": "^10.15.5",
     "vue": "^2.6.11",
