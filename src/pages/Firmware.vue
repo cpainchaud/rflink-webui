@@ -63,13 +63,13 @@
 			return {
 				uploadPercentage: 0,
 				md5: "",
-				file: null
+				file: null,
+				polling: null
 			}
 		},
 		methods: {
 			handleFileUpload(){
 				this.file = this.$refs.file.files[0];
-				console.log(this.file)
 				bmf.md5(this.file, (err, md5) => {
 					this.md5 = md5
 				}, progress => {
@@ -101,11 +101,10 @@
 					Swal.fire({
 						title: 'Success!',
 						html: 'Operation is a success, the esp will now reboot',
-						icon: 'success',
-						confirmButtonText: 'Reload'
-					}).then(() => {
-						window.reload()
+						icon: 'info',
+						confirmButtonText: 'Ok'
 					})
+					this.startChecker();
 				}).catch(error => {
 					console.error(error)
 					Swal.fire({
@@ -116,6 +115,27 @@
 					})
 				});
 			},
+
+			startChecker() {
+				this.polling = setInterval(() => {
+					axios.get("/api/status").then(() => {
+						clearInterval(this.polling);
+
+						Swal.fire({
+							title: 'Success!',
+							html: 'Reboot successful',
+							icon: 'success',
+							confirmButtonText: 'Ok'
+						})
+
+					}).catch(() => {});
+				}, 2000)
+			}
+		},
+		mounted () {
+		},
+		beforeDestroy() {
+			if(this.polling) clearInterval(this.polling);
 		}
 	}
 </script>
