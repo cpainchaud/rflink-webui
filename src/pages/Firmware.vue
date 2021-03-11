@@ -97,7 +97,7 @@
 							this.uploadPercentage = progressEvent.loaded / progressEvent.total;
 						}.bind(this)
 					}
-				).then(function(){
+				).then(()=>{
 					Swal.fire({
 						title: 'Success!',
 						html: 'Operation is a success, the esp will now reboot',
@@ -105,7 +105,7 @@
 						confirmButtonText: 'Ok'
 					})
 					this.startChecker();
-				}).catch(error => {
+				}).catch((error)=>{
 					console.error(error)
 					Swal.fire({
 						title: 'Error!',
