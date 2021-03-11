@@ -118,7 +118,8 @@
 
 			startChecker() {
 				this.polling = setInterval(() => {
-					axios.get("/api/status").then(() => {
+					axios.get("/api/status").then((response) => {
+						if(response.data.uptime > 30) return
 						clearInterval(this.polling);
 
 						Swal.fire({
