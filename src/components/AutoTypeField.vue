@@ -4,13 +4,13 @@
 		<td>
 			<div class="input-container" v-if="html_type_group === 'checkbox'">
 				<label class="switch" style="margin: 0 5px">
-					<input :disabled="!enabled" :checked="configuration.value" v-on:input="porpagate_value_update($event.target.checked)"  :type="html_data_type">
+					<input :disabled="disabled" :checked="configuration.value" v-on:input="porpagate_value_update($event.target.checked)"  :type="html_data_type">
 					<span class="slider round"></span>
 				</label>
 			</div>
 			<div class="input-container" v-else-if="html_type_group === 'input'">
 				<input
-						:disabled="!enabled"
+						:disabled="disabled"
 						:class="{'invalid':!is_valid}"
 						:placeholder="configuration.value"
 						:value="local_value"
@@ -26,7 +26,7 @@
 				<div v-if="html_data_type === null">
 					<p>Type enum&lt;{{ configuration.type }}&gt;{{ configuration.enum }}; is not supported yet</p>
 				</div>
-				<select v-else :disabled="!enabled" required :value="local_value" v-on:input="porpagate_value_update($event.target.value)">
+				<select v-else :disabled="disabled" required :value="local_value" v-on:input="porpagate_value_update($event.target.value)">
 					<template v-if="Array.isArray(configuration.enum)">
 						<option v-for="option in configuration.enum" :key="configuration.key+'_'+option" :value="option">{{ option }}</option>
 					</template>
@@ -59,15 +59,21 @@
 			}
 		},
 		computed: {
-			enabled() {
+			disabled() {
 				let should_enable = true;
 				for(let i=0; i<this.configuration.enabled_by.length; i++) {
 					if( this.configuration.enabled_by_config[ this.configuration.enabled_by[i] ] === false ) should_enable = false;
 				}
-				return should_enable;
+
+				let should_disable = false
+				for(let i=0; i<this.configuration.disabled_by.length; i++) {
+					if( this.configuration.disabled_by_config[ this.configuration.disabled_by[i] ] === true ) should_disable = true;
+				}
+
+				return should_disable || !should_enable;
 			},
 			hidden() {
-				return this.configuration.hide_on_disabled && !this.enabled ;
+				return this.configuration.hide_on_disabled && this.disabled ;
 			},
 			is_valid() {
 				switch (this.configuration.type) {

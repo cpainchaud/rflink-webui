@@ -45,6 +45,8 @@ export function generateKeysMapper(config, sub_config_key, key_filter) {
 
 			enabled_by: defHasSubKeyKeyParm(sub_config_key,key,"enabled_by") ? definitions[sub_config_key][key].enabled_by : [],
 			enabled_by_config: config[sub_config_key],
+			disabled_by: defHasSubKeyKeyParm(sub_config_key,key,"disabled_by") ? definitions[sub_config_key][key].disabled_by : [],
+			disabled_by_config: config[sub_config_key],
 			hide_on_disabled: defHasSubKeyKeyParm(sub_config_key,key,"hide_on_disabled") ? definitions[sub_config_key][key].hide_on_disabled : false,
 
 			constraints: defHasSubKeyKeyParm(sub_config_key,key,"constraints") ? definitions[sub_config_key][key].constraints : {},
@@ -149,7 +151,10 @@ Each parameter is a object containing (* are required):
         - an array   : In which case it is displayed as is in the select
         - an object  : In which case the select will treat the keys as values and the values as the text
   - enabled_by            : This field controls if the field is disabled. It should be an array that contain the name of
-                            other bool keys in the same module that are AND together to determine if it is enabled
+                            other bool keys in the same module that are ANDed together to determine if it is enabled
+  - disabled_by           : This field controls if the field should be disabled It should be an array that contain the name of
+                            other bool keys in the same module that are ORed together to determine if it should be disabled
+                  !!!!!!!!  disabled_by bypasses enabled_by  !!!!!!!!!!
   - hide_on_disabled      : Hide the field completely if it is disabled
   - constraints_enabled_by : This field controls if the constraints or type specific validation should be enabled. Works on the same principle as enabled_by
   - constraints            : This is an object defining the specific constraints for a parameter. It can contain the following
@@ -306,28 +311,32 @@ export const definitions = {
 		},
 		client_ip: {
 			type: "ipaddress",
-			enabled_by: ["client_enabled", "client_dhcp_enabled"],
+			enabled_by: ["client_enabled"],
+			disabled_by: ["client_dhcp_enabled"],
 			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"],
 			hide_on_disabled: true,
 			order: 4,
 		},
 		client_mask: {
 			type: "ipaddress",
-			enabled_by: ["client_enabled", "client_dhcp_enabled"],
+			enabled_by: ["client_enabled"],
+			disabled_by: ["client_dhcp_enabled"],
 			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"],
 			hide_on_disabled: true,
 			order: 5,
 		},
 		client_gateway: {
 			type: "ipaddress",
-			enabled_by: ["client_enabled", "client_dhcp_enabled"],
+			enabled_by: ["client_enabled"],
+			disabled_by: ["client_dhcp_enabled"],
 			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"],
 			hide_on_disabled: true,
 			order: 6,
 		},
 		client_dns: {
 			type: "ipaddress",
-			enabled_by: ["client_enabled", "client_dhcp_enabled"],
+			enabled_by: ["client_enabled"],
+			disabled_by: ["client_dhcp_enabled"],
 			constraints_enabled_by: ["client_enabled", "client_dhcp_enabled"],
 			hide_on_disabled: true,
 			order: 7,
