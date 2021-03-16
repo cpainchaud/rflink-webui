@@ -61,6 +61,10 @@ let config_data = {
 		"tx_nmos": -1,
 		"tx_pmos": -1,
 		"tx_gnd": -1
+	},
+	"serial2net": {
+		"enabled": "true",
+		"port": 1900
 	}
 }
 
