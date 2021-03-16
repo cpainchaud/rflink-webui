@@ -8,6 +8,13 @@
 			</table>
 			<input type="submit" class="btn-green" @click="save_config" value="Save">
 		</div>
+		<div class="container">
+			<h2 style="margin: 5px 0;">Serial2Net</h2>
+			<table>
+				<AutoTypeField v-for="field in fields_ser2net" :key="field.key" :configuration="field" v-on:input="updateValue_ser2net(field, $event)"></AutoTypeField>
+			</table>
+			<input type="submit" class="btn-green" @click="save_config" value="Save">
+		</div>
 	</div>
 </template>
 
@@ -24,11 +31,18 @@
 			fields_mqtt() {
 				if(this.config.mqtt ==null) return []
 				return Object.keys(this.config.mqtt).map(generateKeysMapper(this.config, "mqtt", "")).filter((x)=>{ return !!x }).sort(sortFunction)
+			},
+			fields_ser2net() {
+				if(this.config.serial2net ==null) return []
+				return Object.keys(this.config.serial2net).map(generateKeysMapper(this.config, "serial2net", "")).filter((x)=>{ return !!x }).sort(sortFunction)
 			}
 		},
 		methods: {
 			updateValue_mqtt(field,value) {
 				this.config.mqtt[field.key] = value
+			},
+			updateValue_ser2net(field,value) {
+				this.config.serial2net[field.key] = value
 			}
 		},
 	}

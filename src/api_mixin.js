@@ -12,7 +12,8 @@ export const api_mixin = {
 				mqtt: {},
 				wifi: {},
 				signal: {},
-				radio: {}
+				radio: {},
+				serial2net: {},
 			},
 			status: {
 				uptime: 0,
