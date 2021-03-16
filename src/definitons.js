@@ -202,7 +202,7 @@ export const definitions = {
 			type: "int",
 			constraints: {
 				min: 1,
-				max: 320000,
+				max: 32000,
 			},
 			enabled_by: ["enabled"],
 			constraints_enabled_by: ["enabled"],
@@ -532,6 +532,22 @@ export const definitions = {
 			},
 			order: 11,
 		},
-	}
+	},
+	serial2net: {
+		enabled: {
+			type: "bool",
+			order: 0,
+		},
+		port: {
+			type: "int",
+			constraints: {
+				min: 1,
+				max: 32000,
+			},
+			enabled_by: ["enabled"],
+			constraints_enabled_by: ["enabled"],
+			order: 1,
+		},
+	},
 
 }
