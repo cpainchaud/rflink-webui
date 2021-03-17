@@ -9,6 +9,11 @@
 					<td class="category">Uptime:</td>
 					<td v-if="status.uptime" colspan="2">{{ status.uptime | sec_to_human }}</td>
 				</tr>
+				
+				<tr>
+					<td class="category">Software Version:</td>
+					<td v-if="status.sw_version" colspan="2">{{ status.sw_version }}</td>
+				</tr>
 
 				<tr><td rowspan="3" class="category">Signals</td></tr>
 				<tr>
