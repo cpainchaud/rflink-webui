@@ -89,6 +89,7 @@ let push_config_data_response_error = {
 // explanations/unites in as '_xxxx' values
 let get_status_data = {
 	"uptime": 1200,
+	"sw_version": "RFLink_ESP_5.1-20210312-185563",
 	"_uptime_comment": "uptime in seconds",
 	"mqtt": {
 		"status": "connected",
