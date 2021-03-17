@@ -94,7 +94,7 @@
 				axios.post( '/api/firmware/update', formData, {
 						headers: { 'Content-Type': 'multipart/form-data' },
 						onUploadProgress: function( progressEvent ) {
-							this.uploadPercentage = progressEvent.loaded / progressEvent.total;
+							this.uploadPercentage = Math.round(progressEvent.loaded / progressEvent.total * 10000) / 100;
 						}.bind(this)
 					}
 				).then(()=>{
