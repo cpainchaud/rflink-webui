@@ -341,6 +341,15 @@ export const definitions = {
 			hide_on_disabled: true,
 			order: 7,
 		},
+		client_hostname: {
+			type: "string",
+			enabled_by: ["client_enabled"],
+			constraints: {
+				length_min: 1,
+			},
+			constraints_enabled_by: ["client_enabled"],
+			order: 8,
+		},
 		ap_enabled: {
 			type: "bool",
 			order: 8,
