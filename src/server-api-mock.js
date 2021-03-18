@@ -30,6 +30,7 @@ let config_data = {
 		"client_mask": "255.255.255.0",
 		"client_gateway": "192.168.0.1",
 		"client_dns": "192.168.0.1",
+		"client_hostname": "MyPrecious",
 		"ap_enabled": true,
 		"ap_ssid": "ESPLink-AP",
 		"ap_password": "",
