@@ -115,6 +115,11 @@ let get_status_data = {
 		"received_signal_count":24,
 		"successfully_decoded_count":3
 	},
+	"serial2net":
+	{
+		"status":"running",
+		"clients_count":1,
+	},
 	/*"plugins": {
 		"count": 4,
 		"active_count": 3
