@@ -34,7 +34,7 @@
 						</label>
 					</div>
 					<div style="display: flex; justify-content: center; flex-direction: column">
-						<h2 class="white" style="margin: 0; text-align: center">RFLINK-ESP</h2>
+						<h2 class="white" style="margin: 0; text-align: center">RFLINK-ESP {{ title }}</h2>
 					</div>
 					<div class="menu-btn-container">
 						<button @click="$root.$emit('reload_btn')" class="menu-btn">&#128472;</button>
@@ -46,17 +46,41 @@
 				<slot></slot>
 			</div>
 		</div>
+		<VueTitle :title="'RFLink-ESP '+title"></VueTitle>
 	</div>
 </template>
 
 <script>
+	import VueTitle from "./VueTitle";
+	import axios from "axios";
 	export default {
 		name: "Navigation",
+		components: {VueTitle},
+		data() {
+			return {
+				windowWidth: window.innerWidth,
+				navbar_open: false,
+				navbar_breakpoint: 992,
+				navbar_width: 290,
+				title: ""
+			}
+		},
 		mounted() {
 			window.addEventListener('resize', () => {
 				this.windowWidth = window.innerWidth
 				if(window.innerWidth<992) this.navbar_open = false
 			})
+
+			setInterval(()=>{
+				axios.get("/api/status").then(response => {
+					console.log(response.data)
+
+					this.title = " | "+response.data.hostname
+					if(response.data.network.wifi_client.status === "connected") {
+						this.title +=" ("+response.data.network.wifi_client.ip+")"
+					}
+				}).catch(console.error);
+			},30000)
 		},
 		computed: {
 			page_container() {
@@ -76,14 +100,6 @@
 					display: this.windowWidth > this.navbar_breakpoint ? "none" : (this.navbar_open ? "block" : "none"),
 					opacity: this.windowWidth > this.navbar_breakpoint ? "0%" : (this.navbar_open ? "100%" : "0%")
 				}
-			}
-		},
-		data() {
-			return {
-				windowWidth: window.innerWidth,
-				navbar_open: false,
-				navbar_breakpoint: 992,
-				navbar_width: 290
 			}
 		},
 		methods: {

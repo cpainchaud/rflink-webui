@@ -91,6 +91,7 @@ let push_config_data_response_error = {
 let get_status_data = {
 	"uptime": 1200,
 	"sw_version": "RFLink_ESP_5.1-20210312-185563",
+	"hostname": "esp-55F665",
 	"_uptime_comment": "uptime in seconds",
 	"mqtt": {
 		"status": "connected",
@@ -98,14 +99,14 @@ let get_status_data = {
 	},
 	"network": {
 		"wifi_client": {
-			"status": "disconnected",
+			"status": "connected",
 			"_status_comment": "enum [disabled, connected, disconnected]",
 			"ip": "192.168.0.40",
 			"netmask": "255.255.255.0",
 			"dns": "1.3.4.5"
 		},
 		"wifi_ap": {
-			"status": "enabled",
+			"status": "disabled",
 			"_status_comment": "enum [enabled, disabled]"
 		}
 	},
