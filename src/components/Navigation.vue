@@ -34,7 +34,7 @@
 						</label>
 					</div>
 					<div style="display: flex; justify-content: center; flex-direction: column">
-						<h2 class="white" style="margin: 0; text-align: center">RFLINK-ESP {{ title }}</h2>
+						<h2 class="white" style="margin: 0; text-align: center">{{ title }}</h2>
 					</div>
 					<div class="menu-btn-container">
 						<button @click="$root.$emit('reload_btn')" class="menu-btn">&#128472;</button>
@@ -46,7 +46,7 @@
 				<slot></slot>
 			</div>
 		</div>
-		<VueTitle :title="'RFLink-ESP '+title"></VueTitle>
+		<VueTitle :title="title"></VueTitle>
 	</div>
 </template>
 
@@ -62,7 +62,8 @@
 				navbar_open: false,
 				navbar_breakpoint: 992,
 				navbar_width: 290,
-				title: ""
+				hostname: "",
+				ip: "",
 			}
 		},
 		mounted() {
@@ -73,16 +74,21 @@
 
 			setInterval(()=>{
 				axios.get("/api/status").then(response => {
-					console.log(response.data)
-
-					this.title = " | "+response.data.hostname
-					if(response.data.network.wifi_client.status === "connected") {
-						this.title +=" ("+response.data.network.wifi_client.ip+")"
-					}
+					this.ip = response.data.network.wifi_client.ip
 				}).catch(console.error);
-			},30000)
+
+				axios.get("/api/config").then(response => {
+					this.hostname = response.data.wifi.client_hostname
+				}).catch(console.error);
+			},60000)
 		},
 		computed: {
+			title() {
+				let out = "RFLink-ESP"
+				if(this.hostname) out += " | "+this.hostname
+				if(this.ip) out += " ("+this.ip+")"
+				return out
+			},
 			page_container() {
 				return {
 					left: this.windowWidth > this.navbar_breakpoint ? this.navbar_width+"px" : "0",
