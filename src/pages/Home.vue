@@ -55,6 +55,15 @@
 					<td v-if="status.network.wifi_ap" :class="[`status-${status.network.wifi_ap.status}`]">{{ status.network.wifi_ap.status }}</td>
 				</tr>
 
+				<tr><td rowspan="3" class="category">Serial2Net</td></tr>
+				<tr>
+					<td class="setting">Status</td>
+					<td v-if="status.serial2net.status" :class="[`status-${status.serial2net.status}`]">{{ status.serial2net.status }}</td>
+				</tr>
+				<tr>
+					<td class="setting">Client count</td>
+					<td v-if="status.serial2net.clients_count" >{{ status.serial2net.clients_count }}</td>
+				</tr>
 				<!--<tr><td rowspan="3" class="category">Plugins</td></tr>
 				<tr>
 					<td class="setting">Count</td>
@@ -108,7 +117,7 @@
 </script>
 
 <style scoped>
-	.status-connected,.status-enabled {
+	.status-connected,.status-enabled,.status-running {
 		color: #3db43d;
 	}
 	.status-disconnected {
