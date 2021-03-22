@@ -57,6 +57,8 @@ let config_data = {
 		"rx_pmos": -1,
 		"rx_gnd": -1,
 		"rx_na": -1,
+		"rx_reset": -1,
+		"rx_cs": -1,
 		"tx_data": 2,
 		"tx_vcc": 4,
 		"tx_nmos": -1,
