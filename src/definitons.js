@@ -506,6 +506,20 @@ export const definitions = {
 			},
 			order: 6,
 		},
+		rx_reset: {
+			type: "int",
+			constraints: {
+				min: -1,
+			},
+			order: 6,
+		},
+		rx_cs: {
+			type: "int",
+			constraints: {
+				min: -1,
+			},
+			order: 6,
+		},
 		tx_data: {
 			type: "int",
 			constraints: {
