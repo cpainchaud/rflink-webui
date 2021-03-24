@@ -64,6 +64,7 @@
 				navbar_width: 290,
 				hostname: "",
 				ip: "",
+				interval: null,
 			}
 		},
 		mounted() {
@@ -72,15 +73,17 @@
 				if(window.innerWidth<992) this.navbar_open = false
 			})
 
-			setInterval(()=>{
+			this.interval = setInterval(()=>{
 				axios.get("/api/status").then(response => {
 					this.ip = response.data.network.wifi_client.ip
+					if(this.hostname !== "") clearInterval(this.interval)
 				}).catch(console.error);
 
 				axios.get("/api/config").then(response => {
 					this.hostname = response.data.wifi.client_hostname
+					if(this.ip !== "") clearInterval(this.interval)
 				}).catch(console.error);
-			},60000)
+			},1000)
 		},
 		computed: {
 			title() {
