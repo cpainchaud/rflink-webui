@@ -37,11 +37,11 @@
 				<tr>
 					<td>Firmware URL</td>
 					<th><label>
-						<input required placeholder="https://my.url/here" type="text">
+						<input v-model="url" required placeholder="https://my.url/here" type="text">
 					</label></th>
 				</tr>
 
-			<input type="submit" class="btn-green" value="Flash">
+			<input type="submit" class="btn-green" value="Flash" @click="handleUrlUpload">
 		</div>
 	</div>
 </template>
@@ -61,6 +61,7 @@
 		mixins: [api_mixin],
 		data() {
 			return {
+				url: "https://github.com:443/cpainchaud/RFLink/releases/download/nightly/esp32-firmware-OTA.bin",
 				uploadPercentage: 0,
 				md5: "",
 				file: null,
@@ -68,6 +69,52 @@
 			}
 		},
 		methods: {
+			handleUrlUpload() {
+				axios.post( '/api/firmware/update_from_url', {url: this.url}).then(()=>{
+
+					const interval = setInterval(()=>{
+						axios.get( '/api/firmware/update_from_url').then((data)=> {
+
+							if(data.status === "error") {
+								clearInterval(interval)
+								console.error(data.message)
+								Swal.fire({
+									title: 'Error!',
+									html: 'A network error occured while saving: '+data.message,
+									icon: 'error',
+									confirmButtonText: 'Continue'
+								})
+							}
+
+							else if(data.status === "pending_reboot") {
+								clearInterval(interval)
+								this.startChecker();
+							}
+
+							else {
+								clearInterval(interval)
+								Swal.fire({
+									title: 'Success!',
+									html: 'Operation is a success',
+									icon: 'info',
+									confirmButtonText: 'Ok'
+								})
+							}
+
+						})
+					},1000)
+
+				}).catch((error)=>{
+					console.error(error)
+					Swal.fire({
+						title: 'Error!',
+						html: 'A network error occured while saving: '+error,
+						icon: 'error',
+						confirmButtonText: 'Continue'
+					})
+				});
+			},
+
 			handleFileUpload(){
 				this.file = this.$refs.file.files[0];
 				bmf.md5(this.file, (err, md5) => {
