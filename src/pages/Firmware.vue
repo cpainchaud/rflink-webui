@@ -73,7 +73,7 @@
 				axios.post( '/api/firmware/update_from_url', {url: this.url}).then(()=>{
 
 					const interval = setInterval(()=>{
-						axios.get( '/api/firmware/update_from_url').then((data)=> {
+						axios.get( '/api/firmware/http_update_status').then((data)=> {
 
 							if(data.status === "error") {
 								clearInterval(interval)
