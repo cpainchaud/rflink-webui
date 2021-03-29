@@ -118,7 +118,7 @@ export const api_mixin = {
 			});
 		},
 		esp_reboot() {
-			axios.post("/api/reboot", this.config).then(() => {
+			axios.get("/api/reboot").then(() => {
 				Swal.fire({
 					title: 'Success!',
 					html: 'ESP Will now reboot',
