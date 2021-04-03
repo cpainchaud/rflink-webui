@@ -68,7 +68,7 @@
 				</tr>
 				<tr v-if="selected_release !== null">
 					<td colspan="4">
-						<a :href="url">{{url}}</a> 
+						<a :href="url">{{url}}</a>
 					</td>
 				</tr>
 
@@ -192,18 +192,18 @@
 					const interval = setInterval(()=>{
 						axios.get( '/api/firmware/http_update_status').then((data)=> {
 
-							if(data.status === "error") {
+							if(data.data.status === "error") {
 								clearInterval(interval)
-								console.error(data.message)
+								console.error(data.data.message)
 								Swal.fire({
 									title: 'Error!',
-									html: 'A network error occured while saving: '+data.message,
+									html: 'A network error occured while saving: '+data.data.message,
 									icon: 'error',
 									confirmButtonText: 'Continue'
 								})
 							}
 
-							else if(data.status === "pending_reboot") {
+							else if(data.data.status === "pending_reboot") {
 								clearInterval(interval)
 								this.startChecker();
 							}
