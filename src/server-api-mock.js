@@ -148,6 +148,8 @@ export function makeServer () {
 				//return new Response(404, { some: 'header' }, { errors: [ 'Not found'] });
 			})
 
+			this.passthrough();
+			this.passthrough('https://raw.githubusercontent.com/**');
 		},
 	})
 

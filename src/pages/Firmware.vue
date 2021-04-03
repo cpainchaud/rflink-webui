@@ -35,13 +35,44 @@
 		<div class="container">
 			<h2 style="margin: 5px 0 15px 0;">Update via HTTP URL</h2>
 				<tr>
-					<td>Firmware URL</td>
-					<th><label>
-						<input v-model="url" required placeholder="https://my.url/here" type="text">
-					</label></th>
+					<td>
+						<select v-model="selected_release">
+							<option v-for="option in releases_types" v-bind:value="option.key" v-bind:key="option.key">
+								{{ option.value | capitalize }}
+							</option>
+						</select>
+					</td>
+					<div style="padding: 0 8px" v-if="selected_release !== null">
+						<td style="padding-right: 8px" >@</td>
+						<td>
+							<select v-model="selected_branch">
+								<option v-for="option in release_branch" :selected="true" v-bind:value="option.key" v-bind:key="option.key">
+									{{ option.value }}
+								</option>
+							</select>
+						</td>
+						<td style="padding: 0px 8px">on</td>
+						<td>
+							<select v-model="selected_hardware">
+								<option v-for="option in release_hardware" :selected="true" v-bind:value="option.key" v-bind:key="option.key">
+									{{ option.value }}
+								</option>
+							</select>
+						</td>
+					</div>
+					<div style="padding: 0 8px" v-else>
+						<th><label>
+							<input v-model="manual_url" required placeholder="https://my.url/here" type="text">
+						</label></th>
+					</div>
+				</tr>
+				<tr v-if="selected_release !== null">
+					<td colspan="4">
+						<a :href="url">{{url}}</a> 
+					</td>
 				</tr>
 
-			<input type="submit" class="btn-green" value="Flash" @click="handleUrlUpload">
+			<input style="margin-top: 8px" type="submit" class="btn-green" value="Flash" @click="handleUrlUpload">
 		</div>
 	</div>
 </template>
@@ -59,9 +90,81 @@
 		name: "Firmware",
 		components: {Progress},
 		mixins: [api_mixin],
+		computed: {
+			releases_types() {
+				const r = Object.keys(this.releases).map(key=> {
+						return {
+							key,
+							value: key.replace("_"," ")
+						}
+					})
+				r.push({key:null,value:"Manual"});
+				return r
+			},
+			release_branch() {
+				if (this.selected_release === null || this.releases[this.selected_release] === undefined) return []
+				else {
+					return this.releases[this.selected_release].map(b=>{
+						return {
+							key: b.name,
+							value: b.name
+						}
+					})
+				}
+			},
+			release_hardware() {
+				if (this.selected_release === null || this.releases[this.selected_release] === undefined) return []
+				let branch = this.releases[this.selected_release].filter(x=>{
+					return x.name === this.selected_branch
+				})
+				if (branch.length !== 1) return []
+				else branch = branch[0];
+
+				return Object.keys(branch.hardware).map(key=> {
+					return {
+						key,
+						value: key
+					}
+				})
+			},
+			url() {
+				if (this.selected_release === null || this.releases[this.selected_release] === undefined) return this.manual_url
+				else {
+					let branch = this.releases[this.selected_release].filter(x=>{
+						return x.name === this.selected_branch
+					})
+					if (branch.length !== 1) return ""
+					else return branch[0].hardware[this.selected_hardware]
+				}
+			}
+		},
+		watch: {
+			selected_release: function (newVal){
+				if(newVal === undefined || newVal === null) return
+				this.selected_branch = this.releases[newVal][0].name
+			},
+			selected_branch: function (newVal){
+				if(this.selected_release === undefined || this.selected_release === null) return
+
+				let branch = this.releases[this.selected_release].filter(x=>{
+					return x.name === newVal
+				})
+				if (branch.length !== 1) return
+
+				this.selected_hardware = Object.keys(branch[0].hardware)[0]
+			}
+		},
 		data() {
 			return {
-				url: "https://github.com:443/cpainchaud/RFLink/releases/download/nightly/esp32-firmware-OTA.bin",
+				releases_url: "https://raw.githubusercontent.com/cpainchaud/RFLink32/special-ui-release/releases.json",
+				releases: {},
+
+				selected_release: null,
+				selected_branch: null,
+				selected_hardware: null,
+
+
+				manual_url: "",
 				uploadPercentage: 0,
 				md5: "",
 				file: null,
@@ -69,6 +172,20 @@
 			}
 		},
 		methods: {
+			getReleases() {
+				axios.get(this.releases_url).then((data)=>{
+					this.releases = data.data
+					this.selected_release = Object.keys(data.data)[0]
+				}).catch((error)=>{
+					console.error(error)
+					Swal.fire({
+						title: 'Error!',
+						html: 'A network error occured while downloading the releases: '+error,
+						icon: 'error',
+						confirmButtonText: 'Continue'
+					})
+				});
+			},
 			handleUrlUpload() {
 				axios.post( '/api/firmware/update_from_url', {url: this.url}).then(()=>{
 
@@ -181,6 +298,7 @@
 			}
 		},
 		mounted () {
+			this.getReleases()
 		},
 		beforeDestroy() {
 			if(this.polling) clearInterval(this.polling);
