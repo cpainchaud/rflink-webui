@@ -188,39 +188,39 @@
 			},
 			handleUrlUpload() {
 				axios.post( '/api/firmware/update_from_url', {url: this.url}).then(()=>{
+					setTimeout(()=>{
+						const interval = setInterval(()=>{
+							axios.get( '/api/firmware/http_update_status').then((data)=> {
 
-					const interval = setInterval(()=>{
-						axios.get( '/api/firmware/http_update_status').then((data)=> {
+								if(data.data.status === "error") {
+									clearInterval(interval)
+									console.error(data.data.message)
+									Swal.fire({
+										title: 'Error!',
+										html: 'A network error occured while saving: '+data.data.message,
+										icon: 'error',
+										confirmButtonText: 'Continue'
+									})
+								}
 
-							if(data.data.status === "error") {
-								clearInterval(interval)
-								console.error(data.data.message)
-								Swal.fire({
-									title: 'Error!',
-									html: 'A network error occured while saving: '+data.data.message,
-									icon: 'error',
-									confirmButtonText: 'Continue'
-								})
-							}
+								else if(data.data.status === "pending_reboot") {
+									clearInterval(interval)
+									this.startChecker();
+								}
 
-							else if(data.data.status === "pending_reboot") {
-								clearInterval(interval)
-								this.startChecker();
-							}
+								else {
+									clearInterval(interval)
+									Swal.fire({
+										title: 'Success!',
+										html: 'Operation is a success',
+										icon: 'info',
+										confirmButtonText: 'Ok'
+									})
+								}
 
-							else {
-								clearInterval(interval)
-								Swal.fire({
-									title: 'Success!',
-									html: 'Operation is a success',
-									icon: 'info',
-									confirmButtonText: 'Ok'
-								})
-							}
-
-						})
-					},1000)
-
+							})
+						},1000)
+					},750)
 				}).catch((error)=>{
 					console.error(error)
 					Swal.fire({
