@@ -203,20 +203,20 @@
 									})
 								}
 
-								else if(data.data.status === "pending_reboot") {
+								else if(data.data.status === "in_progress" || data.data.status === "pending_reboot") {
+									clearInterval(interval)
+									Swal.fire({
+										title: 'Downloading',
+										html: 'The esp is now downloading the firmware',
+										icon: 'info',
+										confirmButtonText: 'Ok'
+									})
+
 									clearInterval(interval)
 									this.startChecker();
 								}
 
-								else {
-									clearInterval(interval)
-									Swal.fire({
-										title: 'Success!',
-										html: 'Operation is a success',
-										icon: 'info',
-										confirmButtonText: 'Ok'
-									})
-								}
+
 
 							})
 						},1000)

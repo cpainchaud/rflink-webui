@@ -20,9 +20,18 @@ import ToastComponent from './components/Toast'
 import { capitalize } from "./utils"
 
 Vue.filter('capitalize', capitalize)
-Vue.filter('sec_to_human', function (value) {
-	if (!value) return ''
-	return new Date(value * 1000).toISOString().substr(11, 8)
+Vue.filter('sec_to_human', function (seconds) {
+	seconds = Number(seconds);
+	let d = Math.floor(seconds / (3600*24));
+	let h = Math.floor(seconds % (3600*24) / 3600);
+	let m = Math.floor(seconds % 3600 / 60);
+	let s = Math.floor(seconds % 60);
+
+	if(h<10) h = "0"+h
+	if(m<10) m = "0"+m
+	if(s<10) s = "0"+s
+
+	return d+"d "+h+":"+m+":"+s
 })
 
 
