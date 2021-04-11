@@ -62,7 +62,7 @@
 				</tr>
 				<tr>
 					<td class="setting">Client count</td>
-					<td v-if="status.serial2net.clients_count" >{{ status.serial2net.clients_count }}</td>
+<!--					<td v-if="status.serial2net.clients_count" >{{ status.serial2net.clients_count }}</td>-->
 				</tr>
 				<!--<tr><td rowspan="3" class="category">Plugins</td></tr>
 				<tr>
@@ -131,6 +131,11 @@
 		font-family: arial, sans-serif;
 		border-collapse: collapse;
 		width: 100%;
+		border: 1px solid #dddddd;
+	}
+
+	tr {
+		border: 1px solid #dddddd;
 	}
 
 	td, th {
