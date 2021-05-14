@@ -461,7 +461,7 @@ export const definitions = {
 	radio: {
 		hardware: {
 			type: "string",
-			enum: {"generic":"Generic", "RFM69CW":"RFM69CW", "RFM69HCW":"RFM69HCW", "SX1278":"SX1278"},
+			enum: {"generic":"Generic", "RFM69CW":"RFM69CW", "RFM69HCW":"RFM69HCW", "SX1276":"SX1276", "SX1278":"SX1278"},
 			order: 0,
 		},
 		rx_data: {
