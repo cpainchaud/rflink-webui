@@ -62,7 +62,7 @@
 				</tr>
 				<tr>
 					<td class="setting">Client count</td>
-<!--					<td v-if="status.serial2net.clients_count" >{{ status.serial2net.clients_count }}</td>-->
+					<td v-if="status.serial2net.clients_count" >{{ status.serial2net.clients_count }}</td>
 				</tr>
 				<!--<tr><td rowspan="3" class="category">Plugins</td></tr>
 				<tr>
