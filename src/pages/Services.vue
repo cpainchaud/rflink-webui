@@ -52,7 +52,6 @@
 			updateValue_portal(field,value) {
 				this.config.portal[field.key] = value
 			},
-			updat
 			updateValue_mqtt(field,value) {
 				this.config.mqtt[field.key] = value
 			},
