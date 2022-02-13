@@ -54,6 +54,10 @@ export function generateKeysMapper(config, sub_config_key, key_filter) {
 			comment:  defHasSubKeyKeyParm(sub_config_key,key,"unit") ? definitions[sub_config_key][key].unit : "",
 
 			order:  defHasSubKeyKeyParm(sub_config_key,key,"order") ? definitions[sub_config_key][key].order : Infinity,
+
+			warning_message:  defHasSubKeyKeyParm(sub_config_key,key,"warning_message") ? definitions[sub_config_key][key].warning_message : "",
+			notice_message:  defHasSubKeyKeyParm(sub_config_key,key,"notice_message") ? definitions[sub_config_key][key].notice_message : "",
+
 		}
 	}
 }
@@ -158,11 +162,13 @@ Each parameter is a object containing (* are required):
   - hide_on_disabled      : Hide the field completely if it is disabled
   - constraints_enabled_by : This field controls if the constraints or type specific validation should be enabled. Works on the same principle as enabled_by
   - constraints            : This is an object defining the specific constraints for a parameter. It can contain the following
-        - length_min : Only applied when the type is a string/password. Minimum string length
-        - length_max : Only applied when the type is a string/password. Maximum string length
-        - min        : Only applied when the type is a number. Minimum value
-        - max        : Only applied when the type is a number. Maximum value
-  - order                 : The field control in which order the info will be displayed. THis is per category
+        - length_min           : Only applied when the type is a string/password. Minimum string length
+        - length_max           : Only applied when the type is a string/password. Maximum string length
+        - min                  : Only applied when the type is a number. Minimum value
+        - max                  : Only applied when the type is a number. Maximum value
+  - order                  : The field control in which order the info will be displayed. THis is per category
+  - warning_message        : Displays a warning sign with a message on hover️
+  - notice_message         : Displays a info sign with a message on hover️
  */
 export const definitions = {
 	portal: {

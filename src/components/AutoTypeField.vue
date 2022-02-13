@@ -40,12 +40,22 @@
 			</div>
 		</td>
 		<td>{{ configuration.comment }}</td>
+		<td>
+			<Icon v-if="configuration.notice_message" icon="notice">
+				{{ configuration.notice_message }}
+			</Icon>
+			<Icon v-if="configuration.warning_message" icon="warning">
+				{{ configuration.warning_message }}
+			</Icon>
+		</td>
 	</tr>
 </template>
 
 <script>
+	import Icon from "./Icon";
 	export default {
 		name: "AutoTypeField",
+		components: {Icon},
 		props: ['configuration'],
 		data() {
 			return {
