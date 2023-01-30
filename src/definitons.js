@@ -199,9 +199,12 @@ export const definitions = {
 			order: 0,
 		},
 		server: {
-			type: "ipaddress",
+			type: "string",
 			enabled_by: ["enabled"],
 			constraints_enabled_by: ["enabled"],
+			constraints: {
+				length_min: 1,
+			},
 			order: 1,
 		},
 		port: {
