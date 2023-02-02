@@ -287,7 +287,7 @@ export const definitions = {
 			order: 11,
 		},
 		ca_cert: {
-			type: "bool",
+			type: "string",
 			enabled_by: ["enabled","ssl_enabled"],
 			order: 12,
 		},
