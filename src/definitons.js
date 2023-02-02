@@ -58,6 +58,8 @@ export function generateKeysMapper(config, sub_config_key, key_filter) {
 			warning_message:  defHasSubKeyKeyParm(sub_config_key,key,"warning_message") ? definitions[sub_config_key][key].warning_message : "",
 			notice_message:  defHasSubKeyKeyParm(sub_config_key,key,"notice_message") ? definitions[sub_config_key][key].notice_message : "",
 
+			// Only for upload types
+			upload_filename:  defHasSubKeyKeyParm(sub_config_key,key,"upload_filename") ? definitions[sub_config_key][key].upload_filename : "",
 		}
 	}
 }
@@ -169,6 +171,7 @@ Each parameter is a object containing (* are required):
   - order                  : The field control in which order the info will be displayed. THis is per category
   - warning_message        : Displays a warning sign with a message on hover️
   - notice_message         : Displays a info sign with a message on hover️
+  - upload_filename        : (Only for upload type) The filename to save on the ESP
  */
 export const definitions = {
 	portal: {
@@ -287,9 +290,10 @@ export const definitions = {
 			order: 11,
 		},
 		ca_cert: {
-			type: "string",
+			type: "upload",
 			enabled_by: ["enabled","ssl_enabled"],
 			order: 12,
+			upload_filename: "mqtt_ca_cert.pem"
 		},
 	},
 	wifi: {

@@ -19,7 +19,10 @@ let config_data = {
 		"topic_in": "/ESP00/cmd",
 		"topic_out": "/ESP00/msg",
 		"topic_lwt": "/ESP00/lwt",
-		"lwt_enabled": true
+		"lwt_enabled": true,
+		"ssl_enabled": true,
+		"ssl_insecure": false,
+		"ca_cert": "",
 	},
 	"wifi": {
 		"client_enabled": false,
