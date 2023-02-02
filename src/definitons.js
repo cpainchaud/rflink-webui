@@ -98,6 +98,8 @@ function typeToconstraintsType(type) {
 		case "text":
 		case "password":
 			return "string"
+		case "upload":
+			return "upload"
 	}
 	return "string";
 }
@@ -292,6 +294,7 @@ export const definitions = {
 		ca_cert: {
 			type: "upload",
 			enabled_by: ["enabled","ssl_enabled"],
+			disabled_by: ["ssl_insecure"],
 			order: 12,
 			upload_filename: "mqtt_ca_cert.pem"
 		},

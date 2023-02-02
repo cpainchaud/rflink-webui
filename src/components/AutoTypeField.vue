@@ -35,6 +35,9 @@
 					</template>
 				</select>
 			</div>
+      <div class="input-container" v-else-if="html_type_group === 'upload'">
+        <FileUploader :configuration="configuration" :disabled="disabled"/>
+      </div>
 			<div v-else>
 				<p>Type {{ configuration.type }} is not supported yet</p>
 			</div>
@@ -53,9 +56,10 @@
 
 <script>
 	import Icon from "./Icon";
+  import FileUploader from "@/components/FileUploader.vue";
 	export default {
 		name: "AutoTypeField",
-		components: {Icon},
+		components: {FileUploader, Icon},
 		props: ['configuration'],
 		data() {
 			return {
@@ -107,15 +111,16 @@
 				switch (this.configuration.type) {
 					case "bool":
 						return "checkbox"
-					case "int":
+          case "int":
 					case "double":
 					case "string":
 					case "text":
 					case "ipaddress":
 					case "password":
 						return "input"
+          default:
+            return this.configuration.type
 				}
-				return null;
 			},
 			html_data_type() {
 				switch (this.configuration.type) {
