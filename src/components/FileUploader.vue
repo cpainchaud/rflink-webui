@@ -71,7 +71,6 @@ export default {
           icon: 'info',
           confirmButtonText: 'Ok'
         })
-        this.startChecker();
       }).catch((error)=>{
         console.error(error)
         Swal.fire({
