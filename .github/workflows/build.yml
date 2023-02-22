@@ -19,6 +19,7 @@ jobs:
       
     - name: compile web files
       run: |
+        export NODE_OPTIONS=--openssl-legacy-provider
         npm run build
         
     - name: Check folder CPP exists
